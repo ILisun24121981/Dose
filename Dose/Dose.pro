@@ -16,14 +16,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    loginner.cpp \
     main.cpp \
-    login_form.cpp
+    login_form.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    login_form.h
+    login_form.h \
+    loginner.h \
+    mainwindow.h
 
 FORMS += \
-    login_form.ui
+    login_form.ui \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
