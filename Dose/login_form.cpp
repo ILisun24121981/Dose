@@ -2,21 +2,18 @@
 #include "ui_login_form.h"
 #include "loginner.h"
 
-Login_form::Login_form(QWidget *parent, MainWindow** mainw)
+Login_form::Login_form(Controller *ct, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Login_form)
-{
-    _mw=mainw;
+{  
     ui->setupUi(this);
-    _loginner = new Lis::Loginner(this);
-    QObject::connect(this,SIGNAL(login(QString,QString)),_loginner,SLOT(loginCheck(QString,QString)));
+    ct->_pr = new Lis::Loginner(ct->_view);
+    QObject::connect(this,SIGNAL(login(QString,QString)),ct->_pr,SLOT(loginCheck(QString,QString)));
 }
 
 Login_form::~Login_form()
 {
-    delete _mw;
     delete ui;
-    delete _loginner;
 }
 
 

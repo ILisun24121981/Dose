@@ -1,17 +1,20 @@
 #include "loginner.h"
+#include "login_form.h"
+#include "mainwindow.h"
 
 
 
-Lis::Loginner::Loginner(Login_form *lF):QObject()
+Lis::Loginner::Loginner(QWidget *v):Processor()
 {
-    _loginForm = lF;
+   _view = v;
 }
 
 Lis::Loginner::~Loginner()
 {
-    delete _loginForm;
+
 }
 
 void Lis::Loginner::loginCheck(QString username,QString password) {
-    *(_loginForm->_mw) = new MainWindow();
+   delete _view;
+   _view = new MainWindow ();
 }

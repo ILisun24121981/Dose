@@ -3,28 +3,24 @@
 
 #include <QObject>
 #include <QFileSystemModel>
-#include "login_form.h"
+#include "processor.h"
 
 namespace Lis {
 
-    class Loginner:public QObject
+    class Loginner:public Processor
     {
         Q_OBJECT
-
         public:
-            Loginner(Login_form *lF);
+            Loginner(QWidget *view);
             ~Loginner();
 
         public slots:
             void loginCheck(QString username,QString password);
+        public:
+            QWidget *_view;
+     };
 
-
-        private:
-            Login_form *_loginForm;
-
-    };
-
-} // namespace Lis
+} //namespace Lis
 
 
 #endif // LOGINNER_H

@@ -3,10 +3,11 @@
 
 #include <QDialog>
 #include "loginner.h"
-#include "mainwindow.h"
+#include "controller.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Login_form; }
+namespace Ui { class Login_form; };
+
 QT_END_NAMESPACE
 
 using namespace Lis;
@@ -16,7 +17,7 @@ class Login_form : public QDialog
     Q_OBJECT
 
     public:
-        Login_form(QWidget *parent = nullptr, MainWindow** mainw = nullptr );
+        Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
 
     private slots:
@@ -25,10 +26,8 @@ class Login_form : public QDialog
     signals:
         void login(QString userName,QString password);
 
-    public:
-        MainWindow** _mw;
     private:        
         Ui::Login_form *ui;
-        Lis::Loginner *_loginner;
+
 };
 #endif // LOGIN_FORM_H
