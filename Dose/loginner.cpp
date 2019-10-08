@@ -2,11 +2,9 @@
 #include "login_form.h"
 #include "mainwindow.h"
 
-
-
-Lis::Loginner::Loginner(QWidget *v):Processor()
+Lis::Loginner::Loginner(Login_form *p):Processor()
 {
-   _view = v;
+   _parent = p;
 }
 
 Lis::Loginner::~Loginner()
@@ -15,6 +13,7 @@ Lis::Loginner::~Loginner()
 }
 
 void Lis::Loginner::loginCheck(QString username,QString password) {
-   delete _view;
-   _view = new MainWindow ();
+   _view_control = new MainWindow ();
+   _view_control->show();
+   this->~Loginner();
 }

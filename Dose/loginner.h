@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QFileSystemModel>
 #include "processor.h"
+#include "login_form.h"
 
 namespace Lis {
 
@@ -11,13 +12,13 @@ namespace Lis {
     {
         Q_OBJECT
         public:
-            Loginner(QWidget *view);
+            Loginner(Login_form *parent);
             ~Loginner();
 
         public slots:
             void loginCheck(QString username,QString password);
         public:
-            QWidget *_view;
+            Login_form *_parent;
      };
 
 } //namespace Lis

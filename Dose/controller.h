@@ -12,7 +12,7 @@ namespace Lis {
             Controller();
             ~Controller();
         public:
-            QWidget *_view;
+            QWidget *_widget;
             Processor *_pr;
     };
 

@@ -3,7 +3,8 @@
 
 Lis::Controller::Controller()
 {
-    _view = new Login_form(this);
+    _widget = new Login_form(this);
+    _widget->show();
 }
 Lis::Controller::~Controller(){
 
