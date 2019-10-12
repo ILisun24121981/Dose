@@ -2,9 +2,10 @@
 #define LOGINNER_H
 
 #include <QObject>
-#include <QFileSystemModel>
 #include "processor.h"
+#include "controller.h"
 #include "login_form.h"
+
 
 namespace Lis {
 
@@ -12,13 +13,13 @@ namespace Lis {
     {
         Q_OBJECT
         public:
-            Loginner(Login_form *parent);
+            Loginner(Controller *ct);
             ~Loginner();
 
         public slots:
             void loginCheck(QString username,QString password);
-        public:
-            Login_form *_parent;
+            void connection();
+
      };
 
 } //namespace Lis

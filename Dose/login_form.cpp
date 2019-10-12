@@ -7,8 +7,7 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
     , ui(new Ui::Login_form)
 {  
     ui->setupUi(this);
-    ct->_pr = new Lis::Loginner(ct->_widget);
-    QObject::connect(this,SIGNAL(login(QString,QString)),ct->_pr,SLOT(loginCheck(QString,QString)));
+    _controller = ct;
 }
 
 Login_form::~Login_form()

@@ -28,6 +28,7 @@ class Login_form : public QDialog
 
     private:        
         Ui::Login_form *ui;
+        Controller *_controller;
 
 };
 #endif // LOGIN_FORM_H
