@@ -4,7 +4,6 @@
 #include <QObject>
 #include "processor.h"
 #include "controller.h"
-#include "login_form.h"
 
 
 namespace Lis {

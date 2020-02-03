@@ -1,5 +1,5 @@
 #include "loginner.h"
-#include "login_form.h"
+
 
 Lis::Loginner::Loginner(Controller *ct):Processor(ct){
 }
