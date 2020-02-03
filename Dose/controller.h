@@ -15,11 +15,11 @@ namespace Lis {
             Controller();
             ~Controller();
 
-        public slots:
-            void changeApp(QWidget *wd, Processor *pr);
+//        public slots:
+//            void changeApp(QWidget *wd, Processor *pr);
 
-        signals:
-            void connectApp();
+//        signals:
+//            void connectApp();
 
         public:
             QWidget *_widget;

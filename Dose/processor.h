@@ -11,13 +11,14 @@ namespace Lis {
         Q_OBJECT
 
         public:
-            Processor(Controller *ct);
+            Processor(Controller *ct, QObject *parent = nullptr);
+            ~Processor();
 
-        public slots:
-            void connect();
+//        public slots:
+//            void connect();
 
-        signals:
-            void changeAppByController();
+//        signals:
+//            void changeAppByController();
 
         public:
             Controller *_controller;

@@ -7,13 +7,13 @@ Lis::Controller::Controller():QObject()
 {
     _widget = new Login_form(this);
     _processor = new Loginner(this);
-    emit connectApp();
     _widget->show();
-}
-
-void Lis::Controller::connectApp(){
 
 }
+
+//void Lis::Controller::connectApp(){
+
+//}
 
 Lis::Controller::~Controller(){
 

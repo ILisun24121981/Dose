@@ -2,7 +2,6 @@
 #define LOGIN_FORM_H
 
 #include <QDialog>
-#include "loginner.h"
 #include "controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -20,11 +19,11 @@ class Login_form : public QDialog
         Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
 
-    private slots:
-        void on_buttonBox_Login_accepted();
+//    private slots:
+//        void on_buttonBox_Login_accepted();
 
-    signals:
-        void login(QString userName,QString password);
+//    signals:
+//        void login(QString userName,QString password);
 
     private:        
         Ui::Login_form *ui;

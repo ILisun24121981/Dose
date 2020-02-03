@@ -16,7 +16,7 @@ Login_form::~Login_form()
 }
 
 
-void Login_form::on_buttonBox_Login_accepted()
-{       
-    emit this->login(ui->lineEdit_UserName->text(),ui->lineEdit_Password->text());
-}
+//void Login_form::on_buttonBox_Login_accepted()
+//{
+//    emit this->login(ui->lineEdit_UserName->text(),ui->lineEdit_Password->text());
+//}

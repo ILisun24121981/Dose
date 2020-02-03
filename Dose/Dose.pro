@@ -17,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     controller.cpp \
-    loginner.cpp \
+    login_processor.cpp \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
@@ -26,7 +26,7 @@ SOURCES += \
 HEADERS += \
     controller.h \
     login_form.h \
-    loginner.h \
+    login_processor.h \
     mainwindow.h \
     processor.h
 

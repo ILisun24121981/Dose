@@ -10,14 +10,14 @@ namespace Lis {
 
     class Loginner:public Processor
     {
-        Q_OBJECT
+
         public:
             Loginner(Controller *ct);
             ~Loginner();
 
-        public slots:
-            void loginCheck(QString username,QString password);
-            void connection();
+//        public slots:
+//            void loginCheck(QString username,QString password);
+//            void connection();
 
      };
 
