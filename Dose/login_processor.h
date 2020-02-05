@@ -8,17 +8,18 @@
 
 namespace Lis {
 
-    class Loginner:public Processor
+    class Login_processor:public Processor
     {
 
+        Q_OBJECT
+
         public:
-            Loginner(Controller *ct);
-            ~Loginner();
+            Login_processor(Controller *ct);
+            ~Login_processor();
 
-//        public slots:
-//            void loginCheck(QString username,QString password);
-//            void connection();
 
+        public slots:
+            void loginCheck(QString username,QString password);
      };
 
 } //namespace Lis

@@ -1,17 +1,19 @@
-#include "loginner.h"
+#include "login_processor.h"
+#include <QDebug>
 
 
-Lis::Loginner::Loginner(Controller *ct):Processor(ct){
-}
-
-Lis::Loginner::~Loginner(){
+Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
 
 }
 
-//void Lis::Loginner::loginCheck(QString username,QString password) {
+Lis::Login_processor::~Login_processor(){
 
-//}
+}
 
+void Lis::Login_processor::loginCheck(QString username,QString password) {
+    qDebug()<<username;
+    qDebug()<<password;
+}
 //void Lis::Loginner::connection() {
 //    QObject::connect(_controller->_widget,SIGNAL(login(QString,QString)),_controller->_processor,SLOT(loginCheck(QString,QString)));
 //}

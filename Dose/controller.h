@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
-#include "processor.h"
+
 
 namespace Lis {
 
@@ -23,7 +23,6 @@ namespace Lis {
 
         public:
             QWidget *_widget;
-            Processor *_processor;
 
     };
 

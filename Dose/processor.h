@@ -8,10 +8,8 @@ namespace Lis {
     class Processor:public QObject
     {
 
-        Q_OBJECT
-
         public:
-            Processor(Controller *ct, QObject *parent = nullptr);
+            Processor(Controller *ct);
             ~Processor();
 
 //        public slots:
