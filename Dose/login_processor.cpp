@@ -1,7 +1,7 @@
 #include "login_processor.h"
 #include <QDebug>
 #include <QFile>
-
+#include <QRegExp>
 Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
 
 }
@@ -19,9 +19,22 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         return;
     qDebug()<<"file opened";
     QTextStream in(&loginfile);
-    while (!in.atEnd()) {
+    char match =0;
+    while (!in.atEnd()&& match ==0 ) {
         QString line = in.readLine();
-        qDebug()<<line;
+        QRegExp name("^name:"+username+".*$");
+        if (name.exactMatch(line)){
+            QRegExp pass(".*password:"+password+"$");
+            if (pass.exactMatch(line)){
+                qDebug()<<"hello"+username;
+            }else{
+                qDebug()<<"Not correct password";
+            }
+            match =1;
+        }
+    }
+    if(match ==0){
+        qDebug()<<"No such user";
     }
 }
 //void Lis::Loginner::connection() {
