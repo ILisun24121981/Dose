@@ -1,6 +1,7 @@
 #include "controller.h"
 #include "login_form.h"
 #include <QObject>
+#include <QDebug>
 
 Lis::Controller::Controller():QObject()
 {
@@ -9,10 +10,12 @@ Lis::Controller::Controller():QObject()
 
 }
 
-//void Lis::Controller::connectApp(){
-
-//}
-
 Lis::Controller::~Controller(){
 
 }
+
+void Lis::Controller::LoginCompleted(){
+
+    qDebug()<< "close Login form";
+}
+

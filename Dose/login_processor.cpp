@@ -2,8 +2,9 @@
 #include <QDebug>
 #include <QFile>
 #include <QRegExp>
-Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
 
+Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
+    connection();
 }
 
 Lis::Login_processor::~Login_processor(){
@@ -13,10 +14,10 @@ Lis::Login_processor::~Login_processor(){
 void Lis::Login_processor::loginCheck(QString username,QString password) {
     qDebug()<<username;
     qDebug()<<password;
-
+    Login_failure_reason failReason;
     QFile loginfile ("./Login/login.txt");
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+        failReason= Passport_file_problem;
     qDebug()<<"file opened";
     QTextStream in(&loginfile);
     char match =0;
@@ -26,17 +27,25 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         if (name.exactMatch(line)){
             QRegExp pass(".*password:"+password+"$");
             if (pass.exactMatch(line)){
-                qDebug()<<"hello"+username;
+                _controller->usename = username;
+                emit LoginSuccessfull();
+                return;
+                qDebug()<<"hello, "+username;
             }else{
+                failReason = Password_not_correct;
                 qDebug()<<"Not correct password";
             }
             match =1;
         }
     }
     if(match ==0){
+        failReason= No_such_user;
         qDebug()<<"No such user";
     }
+    emit LoginFailed(failReason);
 }
-//void Lis::Loginner::connection() {
-//    QObject::connect(_controller->_widget,SIGNAL(login(QString,QString)),_controller->_processor,SLOT(loginCheck(QString,QString)));
-//}
+
+
+void Lis::Login_processor::connection(){
+    QObject::connect(this,SIGNAL(LoginSuccessfull()),this->_controller,SLOT(LoginCompleted()));
+}

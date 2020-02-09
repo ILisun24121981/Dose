@@ -5,7 +5,7 @@
 Login_form::Login_form(Controller *ct, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Login_form)
-{  
+{
     ui->setupUi(this);
     _LoginProcessor = new Login_processor(ct);
     connection();
@@ -14,14 +14,19 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
 Login_form::~Login_form()
 {
     delete ui;
+    delete _LoginProcessor;
 }
 
 void Login_form::connection(){
-    //QObject::connect(this->ui->buttonBox_Login,SIGNAL(accepted()),this,SLOT(on_buttonBox_Login_accepted()));
     QObject::connect(this,SIGNAL(login(QString,QString)),this->_LoginProcessor,SLOT(loginCheck(QString,QString)));
+   // QObject::connect(this->_LoginProcessor,SIGNAL(LoginFailed(Login_processor::Login_failure_reason)),this,SLOT(IndicateLoginFailReason(Login_processor::Login_failure_reason)));
 }
 
 void Login_form::on_buttonBox_Login_accepted()
 {
     emit this->login(ui->lineEdit_UserName->text(),ui->lineEdit_Password->text());
 }
+
+//void IndicateFailReason(Login_processor::Login_failure_reason reason){
+
+//}
