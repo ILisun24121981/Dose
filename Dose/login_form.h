@@ -17,6 +17,7 @@ class Login_form : public QDialog
 
     public:
 
+
         Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
         void connection();
@@ -31,6 +32,11 @@ class Login_form : public QDialog
     private:        
         Ui::Login_form *ui;
         Login_processor *_LoginProcessor;
+        QString failure[3]={
+            "Passport_file_problem",
+            "No_such_user",
+            "Password_not_correct"
+        };
 
 };
 #endif // LOGIN_FORM_H

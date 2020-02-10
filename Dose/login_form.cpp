@@ -9,6 +9,7 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
     ui->setupUi(this);
     _LoginProcessor = new Login_processor(ct);
     connection();
+
 }
 
 Login_form::~Login_form()
@@ -28,5 +29,5 @@ void Login_form::on_buttonBox_Login_accepted()
 }
 
 void Login_form::IndicateFailReason(Login_processor::Login_failure_reason r){
-    ui->lineEdit_Password->setText("AAAA");
+    ui->lineEdit_Password->setText(failure[r]);
 }
