@@ -11,6 +11,10 @@ Lis::Login_processor::~Login_processor(){
 
 }
 
+void Lis::Login_processor::connection(){
+    QObject::connect(this,SIGNAL(LoginSuccessfull()),this->_controller,SLOT(LoginCompleted()));
+}
+
 void Lis::Login_processor::loginCheck(QString username,QString password) {
     qDebug()<<username;
     qDebug()<<password;
@@ -27,7 +31,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         if (name.exactMatch(line)){
             QRegExp pass(".*password:"+password+"$");
             if (pass.exactMatch(line)){
-                _controller->usename = username;
+                _controller->username =username;
                 emit LoginSuccessfull();
                 return;
                 qDebug()<<"hello, "+username;
@@ -46,6 +50,4 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
 }
 
 
-void Lis::Login_processor::connection(){
-    QObject::connect(this,SIGNAL(LoginSuccessfull()),this->_controller,SLOT(LoginCompleted()));
-}
+

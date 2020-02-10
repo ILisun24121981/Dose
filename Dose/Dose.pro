@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
+    mainwindow_processor.cpp \
     processor.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     login_form.h \
     login_processor.h \
     mainwindow.h \
+    mainwindow_processor.h \
     processor.h
 
 FORMS += \

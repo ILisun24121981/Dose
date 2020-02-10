@@ -16,8 +16,6 @@ class Login_form : public QDialog
     Q_OBJECT
 
     public:
-
-
         Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
         void connection();

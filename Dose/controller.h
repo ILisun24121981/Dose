@@ -17,7 +17,7 @@ namespace Lis {
 
         public:
             QWidget *_widget;
-            QString usename;
+            QString username;
 
         public slots:
             void LoginCompleted();//слот принимающий данные от Login_processor об результате Авторизации
