@@ -15,7 +15,7 @@ Lis::Controller::~Controller(){
 }
 
 void Lis::Controller::LoginCompleted(){
-
+    delete _widget;
     qDebug()<< "close Login form";
 }
 

@@ -15,14 +15,15 @@ class Login_form : public QDialog
 {
     Q_OBJECT
 
-    public:   
+    public:
+
         Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
         void connection();
 
-    private slots:
+    public slots:
         void on_buttonBox_Login_accepted();
-        //void IndicateFailReason();//
+        void IndicateFailReason(Lis::Login_processor::Login_failure_reason);//
 
     signals:
         void login(QString userName,QString password);

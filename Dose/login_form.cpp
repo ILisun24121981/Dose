@@ -19,7 +19,7 @@ Login_form::~Login_form()
 
 void Login_form::connection(){
     QObject::connect(this,SIGNAL(login(QString,QString)),this->_LoginProcessor,SLOT(loginCheck(QString,QString)));
-   // QObject::connect(this->_LoginProcessor,SIGNAL(LoginFailed(Login_processor::Login_failure_reason)),this,SLOT(IndicateLoginFailReason(Login_processor::Login_failure_reason)));
+    QObject::connect(this->_LoginProcessor,SIGNAL(LoginFailed(Lis::Login_processor::Login_failure_reason)),this,SLOT(IndicateFailReason(Lis::Login_processor::Login_failure_reason)));
 }
 
 void Login_form::on_buttonBox_Login_accepted()
@@ -27,6 +27,6 @@ void Login_form::on_buttonBox_Login_accepted()
     emit this->login(ui->lineEdit_UserName->text(),ui->lineEdit_Password->text());
 }
 
-//void IndicateFailReason(Login_processor::Login_failure_reason reason){
-
-//}
+void Login_form::IndicateFailReason(Login_processor::Login_failure_reason r){
+    ui->lineEdit_Password->setText("AAAA");
+}
