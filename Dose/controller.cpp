@@ -17,9 +17,8 @@ Lis::Controller::~Controller(){
 
 void Lis::Controller::LoginCompleted(){
     delete _widget;
-    this->username;
     qDebug()<< "close Login form";
-    _widget = new MainWindow();
+    _widget = new MainWindow(this);
     qDebug()<< "MW created";
     _widget->show();
 

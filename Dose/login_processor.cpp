@@ -31,7 +31,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         if (name.exactMatch(line)){
             QRegExp pass(".*password:"+password+"$");
             if (pass.exactMatch(line)){
-                _controller->username =username;
+                _controller->username = username;
                 emit LoginSuccessfull();
                 return;
                 qDebug()<<"hello, "+username;
