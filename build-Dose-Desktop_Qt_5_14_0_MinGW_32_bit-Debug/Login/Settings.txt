@@ -1,0 +1,14 @@
+WARNING: DO NOT CHANGE THE CATEGORY NAME (IS IS CRITICAL FOR APPLICATION), ONLY INFORMATION (e.g.links) IN CATEGORY IS ACCEPTABLE TO BE CHANGED
+e.g. CATEGORY NAME: "folder to store login file", LINK: - all this text SHALL!!! not be changed.
+
+CATEGORY NAME: "folder to store login file", LINK: 
+	description: By default LINK is:
+CATEGORY NAME: "folder to search unsorted reports", LINK:
+CATEGORY NAME: "folder to store personal reports", LINK:
+CATEGORY NAME: "folder to store logs", LINK:
+	description:logs.txt 
+			1. important file for automatic update the personal reports from common reports due to
+			it save name of last sorted common report and prevent previouse common reports to be sorted 
+			again. If log.txt will be deleted Application will start sorting from first common report in 
+			"folder to search unsorted reports". If Link for "folder to store logs" not set logs.txt will 
+			be created in folder of Application.
