@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
+#include "logger.h"
 
 
 namespace Lis {
@@ -17,10 +18,13 @@ namespace Lis {
 
         public:
             QWidget *_widget;
-            QString username;
+            QString _username;
+            Logger *_logger;
+
 
         public slots:
-            void LoginCompleted();//слот принимающий данные от Login_processor об результате Авторизации
+            void LoginCompleted(QString username);//слот принимающий данные от Login_processor об результате Авторизации
+
     };
 
 }// namespace Lis

@@ -12,14 +12,15 @@ Lis::Login_processor::~Login_processor(){
 }
 
 void Lis::Login_processor::connection(){
-    QObject::connect(this,SIGNAL(LoginSuccessfull()),this->_controller,SLOT(LoginCompleted()));
+    QObject::connect(this,SIGNAL(LoginSuccessfull(QString)),this->_controller,SLOT(LoginCompleted(QString)));
+    QObject::connect(this,SIGNAL(LoginSuccessfull(QString)),this->_controller->_logger,SLOT(write_login_history(QString)));
 }
 
 void Lis::Login_processor::loginCheck(QString username,QString password) {
     qDebug()<<username;
     qDebug()<<password;
     Login_failure_reason failReason;
-    QFile loginfile ("./Login/login.txt");
+    QFile loginfile ();
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text))
         failReason= Passport_file_problem;
     qDebug()<<"file opened";
@@ -31,8 +32,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         if (name.exactMatch(line)){
             QRegExp pass(".*password:"+password+"$");
             if (pass.exactMatch(line)){
-                _controller->username = username;
-                emit LoginSuccessfull();
+                emit LoginSuccessfull(username);
                 return;
                 qDebug()<<"hello, "+username;
             }else{

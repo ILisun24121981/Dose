@@ -29,7 +29,7 @@ namespace Lis {
 
         signals:
             void LoginFailed(Lis::Login_processor::Login_failure_reason reason);
-            void LoginSuccessfull();
+            void LoginSuccessfull(QString username);
 
      };
 

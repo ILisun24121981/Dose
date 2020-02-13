@@ -9,7 +9,7 @@ MainWindow::MainWindow(Controller *ct,QWidget *parent )
     qDebug()<< "1";
     ui->setupUi(this);
     qDebug()<< "2";
-    ui->label_UserName->setText(ct->username);
+    ui->label_UserName->setText(ct->_username);
     qDebug()<< "MW created";
     _mw_processor = new MainWindow_processor(ct);
 }

@@ -18,21 +18,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     controller.cpp \
     data_model.cpp \
+    logger.cpp \
     login_processor.cpp \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
     mainwindow_processor.cpp \
-    processor.cpp
+    processor.cpp \
+    setting_extractor.cpp
 
 HEADERS += \
     controller.h \
     data_model.h \
+    logger.h \
     login_form.h \
     login_processor.h \
     mainwindow.h \
     mainwindow_processor.h \
-    processor.h
+    processor.h \
+    setting_extractor.h
 
 FORMS += \
     login_form.ui \
