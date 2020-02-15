@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "logger.h"
+#include "settings.h"
 
 
 namespace Lis {
@@ -20,10 +21,10 @@ namespace Lis {
             QWidget *_widget;
             QString _username;
             Logger *_logger;
-
+            Settings *_settings;
 
         public slots:
-            void LoginCompleted(QString username);//слот принимающий данные от Login_processor об результате Авторизации
+            void loginCompleted(QString username);//слот принимающий данные от Login_processor об результате Авторизации
 
     };
 

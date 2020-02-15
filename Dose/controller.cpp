@@ -6,6 +6,8 @@
 
 Lis::Controller::Controller():QObject()
 {
+    _settings = new Settings();
+    _settings->read();
     _logger = new Logger();
     _widget = new Login_form(this);
     _widget->show();
@@ -16,7 +18,7 @@ Lis::Controller::~Controller(){
 
 }
 
-void Lis::Controller::LoginCompleted(QString username){
+void Lis::Controller::loginCompleted(QString username){
     _username = username;
     _logger->write_login_history(username);
     delete _widget;

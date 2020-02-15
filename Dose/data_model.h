@@ -9,10 +9,10 @@ class Data_Model
         Data_Model();
         ~Data_Model();
 
-    QVector<QFile*> Search_files();
-    void Write_data_to_personal_files(QVector<QFile*> personal_files);
-    void Read_data_from_file(QFile* file);
-    void Write_data_to_file(QFile* file);
+    QVector<QFile*> search_files();
+    void write_data_to_personal_files(QVector<QFile*> personal_files);
+    void read_data_from_file(QFile* file);
+    void write_data_to_file(QFile* file);
 
     public:
         QVector<QFile*> *_Personal_files;

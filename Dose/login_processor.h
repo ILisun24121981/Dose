@@ -28,8 +28,8 @@ namespace Lis {
             void loginCheck(QString username,QString password);
 
         signals:
-            void LoginFailed(Lis::Login_processor::Login_failure_reason reason);
-            void LoginSuccessfull(QString username);
+            void loginFailed(Lis::Login_processor::Login_failure_reason reason);
+            void loginSuccessfull(QString username);
 
      };
 

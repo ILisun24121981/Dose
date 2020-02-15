@@ -12,15 +12,15 @@ Lis::Login_processor::~Login_processor(){
 }
 
 void Lis::Login_processor::connection(){
-    QObject::connect(this,SIGNAL(LoginSuccessfull(QString)),this->_controller,SLOT(LoginCompleted(QString)));
-    QObject::connect(this,SIGNAL(LoginSuccessfull(QString)),this->_controller->_logger,SLOT(write_login_history(QString)));
+    QObject::connect(this,SIGNAL(loginSuccessfull(QString)),this->_controller,SLOT(loginCompleted(QString)));
+    QObject::connect(this,SIGNAL(loginSuccessfull(QString)),this->_controller->_logger,SLOT(write_login_history(QString)));
 }
 
 void Lis::Login_processor::loginCheck(QString username,QString password) {
     qDebug()<<username;
     qDebug()<<password;
     Login_failure_reason failReason;
-    QFile loginfile ();
+    QFile loginfile("S:\Ivan\Dosimeter\Dose\Files\Settings\Login.txt");
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text))
         failReason= Passport_file_problem;
     qDebug()<<"file opened";
@@ -32,7 +32,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         if (name.exactMatch(line)){
             QRegExp pass(".*password:"+password+"$");
             if (pass.exactMatch(line)){
-                emit LoginSuccessfull(username);
+                emit loginSuccessfull(username);
                 return;
                 qDebug()<<"hello, "+username;
             }else{
@@ -46,7 +46,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
         failReason= No_such_user;
         qDebug()<<"No such user";
     }
-    emit LoginFailed(failReason);
+    emit loginFailed(failReason);
 }
 
 
