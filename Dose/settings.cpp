@@ -18,13 +18,19 @@ QString Lis::Settings::read(){
      qDebug()<<"1";
     while (!in.atEnd()) {
         QString line = in.readLine();
+//(?=.*CATEGORY\\sNAME:(\\s?|\\s+))(.*)(?=(\\s?|\\s+)PARAMETER.*)
 
-        QRegExp value("(?=.*CATEGORY\\sNAME:(\\s?|\\s+))(.*)(?=(\\s?|\\s+)PARAMETER.*)");
-        int pos=value.indexIn(line);
+        QRegExp name("(?:\")(.*)(?=\".*)");
+        int pos=name.indexIn(line);
             if(pos!=-1){
+              text = name.cap(1);
+              qDebug()<<text;
+              QRegExp value("(?:<)(.*)(?=>.*)");
+              int pos=value.indexIn(line);
               text = value.cap(1);
               qDebug()<<text;
-              qDebug()<<value.capturedTexts();
+           bvtyyjdfyysq v   qDebug()<<value.capturedTexts();
+
         }
     }
 }
