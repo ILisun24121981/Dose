@@ -7,11 +7,9 @@
 Lis::Controller::Controller():QObject()
 {
     _settings = new Settings();
-    _settings->read();
     _logger = new Logger();
     _widget = new Login_form(this);
     _widget->show();
-
 }
 
 Lis::Controller::~Controller(){
