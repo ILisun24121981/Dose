@@ -18,12 +18,14 @@ namespace Lis {
             ~Controller();
 
         public:
+            bool AppState;
+
             QWidget *_widget;
             QString _username;
             Logger *_logger;
             Settings *_settings;
 
-        public slots:
+        public slots:          
             void loginCompleted(QString username);//слот принимающий данные от Login_processor об результате Авторизации
 
     };

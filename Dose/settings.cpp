@@ -6,12 +6,19 @@
 
 Lis::Settings::Settings()
 {
-    this->read();
+    this->_settings = new QVector<QString> ();
+    this->result = this->read();
 }
-QString Lis::Settings::read(){
+
+Lis::Settings::~Settings(){
+    delete _settings;
+}
+
+bool Lis::Settings::read(){
     QFile Settingfile("Settings.txt");
     if (!Settingfile.open(QIODevice::ReadOnly | QIODevice::Text)){
          QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");
+         return false;
     }else{
         qDebug()<<"file opened";
         QTextStream in(&Settingfile);
@@ -31,12 +38,14 @@ QString Lis::Settings::read(){
                 if(pos!=-1){
                     text = value.cap(1);
                     qDebug()<<text;
-                    this->_settings.append(text);
+                    this->_settings->append(text);
                     qDebug()<<this->_settings;
                 }else{
                     QMessageBox::information(NULL, QObject::tr("Error"),"check setting file for setted "+text);
+                    return false;
                }
             }
         }
     }
+   return true;
 }

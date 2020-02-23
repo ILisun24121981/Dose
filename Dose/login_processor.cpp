@@ -20,7 +20,7 @@ void Lis::Login_processor::loginCheck(QString username,QString password) {
     qDebug()<<username;
     qDebug()<<password;
     Login_failure_reason failReason;
-    QFile loginfile(this->_controller->_settings->_settings[0]);
+    QFile loginfile(this->_controller->_settings->_settings->first());
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
         failReason= Passport_file_problem;
     }else{

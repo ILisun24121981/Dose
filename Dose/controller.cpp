@@ -7,9 +7,14 @@
 Lis::Controller::Controller():QObject()
 {
     _settings = new Settings();
-    _logger = new Logger();
-    _widget = new Login_form(this);
-    _widget->show();
+    if(_settings->result){
+        _logger = new Logger();
+        _widget = new Login_form(this);
+        _widget->show();
+    }else{
+        delete _settings;
+    }
+    this->AppState = false;
 }
 
 Lis::Controller::~Controller(){

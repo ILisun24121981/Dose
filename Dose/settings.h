@@ -15,12 +15,13 @@ namespace Lis {
                 Folder_to_store_logs
             };
 
-                    Settings();
-            QString read();
+            Settings();
+            ~Settings();
+            bool read();
 
-            QVector<QString> _settings;
+            bool result;
+            QVector<QString> *_settings;
     };
-
 }
 
 
