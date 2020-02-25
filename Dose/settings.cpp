@@ -22,7 +22,7 @@ bool Lis::Settings::read(){
     }else{
         qDebug()<<"file opened";
         QTextStream in(&Settingfile);
-        QString text;
+        QString text, corrected;
          qDebug()<<"1";
         while (!in.atEnd()) {
             QString line = in.readLine();
@@ -37,9 +37,10 @@ bool Lis::Settings::read(){
                 pos=value.indexIn(line);
                 if(pos!=-1){
                     text = value.cap(1);
+                    text.replace("\\","/");
                     qDebug()<<text;
                     this->_settings->append(text);
-                    qDebug()<<this->_settings;
+                    //qDebug()<<this->_settings->;
                 }else{
                     QMessageBox::information(NULL, QObject::tr("Error"),"check setting file for setted "+text);
                     return false;
@@ -48,4 +49,8 @@ bool Lis::Settings::read(){
         }
     }
    return true;
+}
+
+QString Lis::Settings::get(Setting_name sn){
+    return this->_settings->value(sn);
 }

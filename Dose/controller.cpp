@@ -13,8 +13,9 @@ Lis::Controller::Controller():QObject()
         _widget->show();
     }else{
         delete _settings;
+        this->AppState = false;
     }
-    this->AppState = false;
+
 }
 
 Lis::Controller::~Controller(){

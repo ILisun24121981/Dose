@@ -25,7 +25,9 @@ SOURCES += \
     mainwindow.cpp \
     mainwindow_processor.cpp \
     processor.cpp \
-    settings.cpp
+    settings.cpp \
+    txt_login_processor.cpp \
+    txt_processor.cpp
 
 HEADERS += \
     controller.h \
@@ -36,7 +38,9 @@ HEADERS += \
     mainwindow.h \
     mainwindow_processor.h \
     processor.h \
-    settings.h
+    settings.h \
+    txt_login_processor.h \
+    txt_processor_.h
 
 FORMS += \
     login_form.ui \

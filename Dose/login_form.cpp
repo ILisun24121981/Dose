@@ -9,7 +9,6 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
     ui->setupUi(this);
     _LoginProcessor = new Login_processor(ct);
     connection();
-
 }
 
 Login_form::~Login_form()
