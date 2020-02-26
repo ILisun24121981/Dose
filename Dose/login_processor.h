@@ -3,33 +3,30 @@
 
 #include <QObject>
 #include "processor.h"
+#include "txt_login_processor.h"
 
 
 namespace Lis {
 
-    class Login_processor:public Processor
+    class Login_processor:public Processor,public Txt_login_processor
     {
 
         Q_OBJECT
 
-        public:
-
-        enum Login_failure_reason {
-            Passport_file_problem,
-            No_such_user,
-            Password_not_correct
-        };
+        public:        
 
             Login_processor(Controller *ct);
             ~Login_processor();
             void connection();
 
+            Verification_result _result;
+
         public slots:
-            void loginCheck(QString username,QString password);
+            void Verify_Login(QString username,QString password);
 
         signals:
-            void loginFailed(Lis::Login_processor::Login_failure_reason reason);
-            void loginSuccessfull(QString username);
+            void Verification_Failed(Verification_result res);
+            void Verification_Passed(QString username);
 
      };
 

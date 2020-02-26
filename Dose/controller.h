@@ -26,7 +26,7 @@ namespace Lis {
             Settings *_settings;
 
         public slots:          
-            void loginCompleted(QString username);//слот принимающий данные от Login_processor об результате Авторизации
+            void Autorisation_Passed(QString username);//слот принимающий данные от Login_processor об результате Авторизации
 
     };
 

@@ -1,6 +1,8 @@
 #include "logger.h"
 #include <QFile>
 #include <QDebug>
+#include "settings.h"
+#include "QMessageBox"
 
 Lis::Logger::Logger()
 {
@@ -12,8 +14,13 @@ Lis::Logger::~Logger(){
 }
 
 void Lis::Logger::write_login_history(QString username){
-//    QFile Settingfile("Settings.txt");
-//    if (!Settingfile.open(QIODevice::ReadOnly | QIODevice::Text))
+//    if(QFile::exists()
+//    QFile Logfile(Lis::Settings::get(Lis::Settings::Setting_name::File_to_store_logs));
+//    if (!Logfile.open(QIODevice::WriteOnly)){
+//        QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Log file");
+//    }else{
+
+//    }
 //         QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");
 //    qDebug()<<"file opened";
 //    QTextStream in(&Settingfile);

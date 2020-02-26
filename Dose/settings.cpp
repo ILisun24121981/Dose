@@ -52,5 +52,5 @@ bool Lis::Settings::read(){
 }
 
 QString Lis::Settings::get(Setting_name sn){
-    return this->_settings->value(sn);
+    return _settings->value(sn);
 }

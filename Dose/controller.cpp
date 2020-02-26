@@ -22,7 +22,7 @@ Lis::Controller::~Controller(){
 
 }
 
-void Lis::Controller::loginCompleted(QString username){
+void Lis::Controller::Autorisation_Passed(QString username){
     _username = username;
     _logger->write_login_history(username);
     delete _widget;

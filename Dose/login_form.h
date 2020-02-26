@@ -22,7 +22,7 @@ class Login_form : public QDialog
 
     public slots:
         void on_buttonBox_Login_accepted();
-        void indicateFailReason(Lis::Login_processor::Login_failure_reason);//
+        void indicateFailReason(Lis::Login_processor::Verification_result);
 
     signals:
         void login(QString userName,QString password);
@@ -30,7 +30,8 @@ class Login_form : public QDialog
     private:        
         Ui::Login_form *ui;
         Login_processor *_LoginProcessor;
-        QString failure[3]={
+        QString failure[4]={
+            "Verification_Passed",
             "Passport_file_problem",
             "No_such_user",
             "Password_not_correct"

@@ -40,7 +40,7 @@ HEADERS += \
     processor.h \
     settings.h \
     txt_login_processor.h \
-    txt_processor_.h
+    txt_processor.h
 
 FORMS += \
     login_form.ui \

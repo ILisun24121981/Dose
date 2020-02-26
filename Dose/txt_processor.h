@@ -1,6 +1,7 @@
 #ifndef TXT_PROCESSOR_H
 #define TXT_PROCESSOR_H
 
+
 namespace Lis {
 
     class Txt_processor
@@ -8,6 +9,8 @@ namespace Lis {
     public:
         Txt_processor();
         ~Txt_processor();
+
+
 
     };
 }

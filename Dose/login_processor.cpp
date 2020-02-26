@@ -1,9 +1,7 @@
 #include "login_processor.h"
-#include <QDebug>
-#include <QFile>
-#include <QRegExp>
 
-Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
+
+Lis::Login_processor::Login_processor(Controller *ct):Processor(ct),Txt_login_processor(){
     connection();
 }
 
@@ -12,43 +10,16 @@ Lis::Login_processor::~Login_processor(){
 }
 
 void Lis::Login_processor::connection(){
-    QObject::connect(this,SIGNAL(loginSuccessfull(QString)),this->_controller,SLOT(loginCompleted(QString)));
-    QObject::connect(this,SIGNAL(loginSuccessfull(QString)),this->_controller->_logger,SLOT(write_login_history(QString)));
+    QObject::connect(this,SIGNAL(Verification_Passed(QString)),this->_controller,SLOT(Autorisation_Passed(QString)));
 }
 
-void Lis::Login_processor::loginCheck(QString username,QString password) {
-    qDebug()<<username;
-    qDebug()<<password;
-    Login_failure_reason failReason;
-    QFile loginfile(this->_controller->_settings->_settings->first());
-    if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        failReason= Passport_file_problem;
+void Lis::Login_processor::Verify_Login(QString username,QString password) {
+    if ((this->_result = Check_Account(username,password))==Verification_result::Verification_Passed){
+        emit Verification_Passed(username);
     }else{
-        qDebug()<<"file opened";
-        QTextStream in(&loginfile);
-        char match =0;
-        while (!in.atEnd()&& match ==0 ) {
-            QString line = in.readLine();
-            QRegExp name("^name:"+username+".*$");
-            if (name.exactMatch(line)){
-                QRegExp pass(".*password:"+password+"$");
-                if (pass.exactMatch(line)){
-                    emit loginSuccessfull(username);
-                    return;
-                    qDebug()<<"hello, "+username;
-                }else{
-                    failReason = Password_not_correct;
-                    qDebug()<<"Not correct password";
-                }
-                match =1;
-            }
-        }
-        if(match ==0){
-            failReason= No_such_user;
-            qDebug()<<"No such user";
-        }
+        emit Verification_Failed(this->_result);
     }
-    emit loginFailed(failReason);
+
 }
 
 

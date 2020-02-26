@@ -4,6 +4,7 @@
 #include <QObject>
 #include "controller.h"
 
+
 namespace Lis {
     class Processor:public QObject
     {
