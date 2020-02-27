@@ -16,14 +16,18 @@ namespace Lis {
                 File_to_store_logs
             };
 
+            static Settings* getInstance();
+            QString get(Setting_name);
+             ~Settings();
+
+            bool _initResult;
+
+        private:
+
             Settings();
-            ~Settings();
-            bool read();
-            static QString get(Setting_name);
+            static Settings* _instance;
+            bool Init();
 
-            bool result;
-
-         private:
             QVector<QString> *_settings;
 
     };

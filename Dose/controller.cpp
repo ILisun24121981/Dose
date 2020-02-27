@@ -6,8 +6,9 @@
 
 Lis::Controller::Controller():QObject()
 {
-    _settings = new Settings();
-    if(_settings->result){
+
+    _settings = Settings::getInstance();
+    if(_settings->_initResult){
         _logger = new Logger();
         _widget = new Login_form(this);
         _widget->show();
@@ -15,7 +16,6 @@ Lis::Controller::Controller():QObject()
         delete _settings;
         this->AppState = false;
     }
-
 }
 
 Lis::Controller::~Controller(){

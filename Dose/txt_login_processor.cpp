@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QRegExp>
+#include "settings.h"
 
 Lis::Txt_login_processor::Txt_login_processor()
 {
@@ -10,7 +11,7 @@ Lis::Txt_login_processor::Txt_login_processor()
 }
 
 Lis::Txt_login_processor::Verification_result Lis::Txt_login_processor::Check_Account(QString username,QString password){
-    QFile loginfile(Lis::Settings::get(Lis::Settings::Setting_name::File_to_store_users_logins_and_passports));
+    QFile loginfile(Settings::getInstance()->get(Settings::Setting_name::File_to_store_users_logins_and_passports));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
         return Passport_file_problem;
     }else{

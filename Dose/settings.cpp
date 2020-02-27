@@ -4,17 +4,25 @@
 #include <QDebug>
 #include <QRegExp>
 
+Lis::Settings* Lis::Settings::getInstance(){
+    if(_instance == NULL){
+        _instance = new Settings();
+    }
+    return _instance;
+}
+
 Lis::Settings::Settings()
 {
-    this->_settings = new QVector<QString> ();
-    this->result = this->read();
+    _settings = new QVector<QString> ();
+    _initResult = this->Init();
 }
 
-Lis::Settings::~Settings(){
+Lis::Settings::~Settings(){   
     delete _settings;
+    _instance = NULL;
 }
 
-bool Lis::Settings::read(){
+bool Lis::Settings::Init(){
     QFile Settingfile("Settings.txt");
     if (!Settingfile.open(QIODevice::ReadOnly | QIODevice::Text)){
          QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");
