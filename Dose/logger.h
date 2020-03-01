@@ -2,11 +2,12 @@
 #define LOGGER_H
 
 #include <QObject>
+#include "txt_logger.h"
 
 
 namespace Lis {
 
-    class Logger: public QObject
+    class Logger: public QObject, public Txt_logger
     {
         Q_OBJECT
 
@@ -16,7 +17,6 @@ namespace Lis {
 
         public slots:
            void write_login_history(QString username);
-
        // private:
 
     };

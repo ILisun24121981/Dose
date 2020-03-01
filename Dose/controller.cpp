@@ -6,7 +6,6 @@
 
 Lis::Controller::Controller():QObject()
 {
-
     _settings = Settings::getInstance();
     if(_settings->_initResult){
         _logger = new Logger();

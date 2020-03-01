@@ -25,7 +25,7 @@ namespace Lis {
         private:
 
             Settings();
-            static Settings* _instance;
+            static Lis::Settings *_instance;
             bool Init();
 
             QVector<QString> *_settings;

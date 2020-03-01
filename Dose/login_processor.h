@@ -19,13 +19,13 @@ namespace Lis {
             ~Login_processor();
             void connection();
 
-            Verification_result _result;
+           Verification_result _result;
 
         public slots:
             void Verify_Login(QString username,QString password);
 
         signals:
-            void Verification_Failed(Verification_result res);
+            void Verification_Failed(Lis::Login_processor::Verification_result res);
             void Verification_Passed(QString username);
 
      };

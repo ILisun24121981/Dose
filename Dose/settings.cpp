@@ -5,7 +5,7 @@
 #include <QRegExp>
 
 Lis::Settings* Lis::Settings::getInstance(){
-    if(_instance == NULL){
+    if(Lis::Settings::_instance == NULL){
         _instance = new Settings();
     }
     return _instance;
