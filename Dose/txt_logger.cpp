@@ -10,7 +10,7 @@ Lis::Txt_logger::Txt_logger()
 }
 
 void Lis::Txt_logger::check_log_file(){
-    QFile Logfile(Lis::Settings::getInstance()->get(Lis::Settings::Setting_name::File_to_store_logs));
+    QFile Logfile(Lis::Settings::get_instance()->get(Lis::Settings::Setting_name::File_to_store_logs));
     if (!Logfile.open(QIODevice::WriteOnly | QFile::Text)){
        QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Log file");
     }else{

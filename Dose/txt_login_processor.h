@@ -17,7 +17,7 @@ namespace Lis {
         };
 
         Txt_login_processor();
-        Verification_result Check_Account(QString username, QString passwprd );
+        Verification_result check_account(QString username, QString passwprd );
 
     };
 

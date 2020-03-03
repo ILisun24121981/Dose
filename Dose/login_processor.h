@@ -22,11 +22,11 @@ namespace Lis {
            Verification_result _result;
 
         public slots:
-            void Verify_Login(QString username,QString password);
+            void verify_login(QString username,QString password);
 
         signals:
-            void Verification_Failed(Lis::Login_processor::Verification_result res);
-            void Verification_Passed(QString username);
+            void verification_failed(Lis::Login_processor::Verification_result res);
+            void verification_passed(QString username);
 
      };
 

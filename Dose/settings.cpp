@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QRegExp>
 
-Lis::Settings* Lis::Settings::getInstance(){
+Lis::Settings* Lis::Settings::get_instance(){
     if(Lis::Settings::_instance == NULL){
         _instance = new Settings();
     }
@@ -14,7 +14,7 @@ Lis::Settings* Lis::Settings::getInstance(){
 Lis::Settings::Settings()
 {
     _settings = new QVector<QString> ();
-    _initResult = this->Init();
+    _initResult = this->init();
 }
 
 Lis::Settings::~Settings(){   
@@ -22,7 +22,7 @@ Lis::Settings::~Settings(){
     _instance = NULL;
 }
 
-bool Lis::Settings::Init(){
+bool Lis::Settings::init(){
     QFile Settingfile("Settings.txt");
     if (!Settingfile.open(QIODevice::ReadOnly | QIODevice::Text)){
          QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");

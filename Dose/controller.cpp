@@ -6,7 +6,7 @@
 
 Lis::Controller::Controller():QObject()
 {
-    _settings = Settings::getInstance();
+    _settings = Settings::get_instance();
     if(_settings->_initResult){
         _logger = new Logger();
         _widget = new Login_form(this);
@@ -21,7 +21,7 @@ Lis::Controller::~Controller(){
 
 }
 
-void Lis::Controller::Autorisation_Passed(QString username){
+void Lis::Controller::autorisation_passed(QString username){
     _username = username;
     _logger->write_login_history(username);
     delete _widget;

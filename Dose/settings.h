@@ -16,7 +16,7 @@ namespace Lis {
                 File_to_store_logs
             };
 
-            static Settings* getInstance();
+            static Settings* get_instance();
             QString get(Setting_name);
              ~Settings();
 
@@ -26,7 +26,7 @@ namespace Lis {
 
             Settings();
             static Lis::Settings *_instance;
-            bool Init();
+            bool init();
 
             QVector<QString> *_settings;
 

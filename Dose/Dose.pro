@@ -25,6 +25,7 @@ SOURCES += \
     mainwindow.cpp \
     mainwindow_processor.cpp \
     processor.cpp \
+    repor_manager.cpp \
     settings.cpp \
     txt_logger.cpp \
     txt_login_processor.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     mainwindow.h \
     mainwindow_processor.h \
     processor.h \
+    repor_manager.h \
     settings.h \
     txt_logger.h \
     txt_login_processor.h \

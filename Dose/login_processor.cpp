@@ -13,11 +13,11 @@ void Lis::Login_processor::connection(){
     QObject::connect(this,SIGNAL(Verification_Passed(QString)),this->_controller,SLOT(Autorisation_Passed(QString)));
 }
 
-void Lis::Login_processor::Verify_Login(QString username,QString password) {
-    if ((this->_result = Check_Account(username,password))==Verification_result::Verification_Passed){
-        emit Verification_Passed(username);
+void Lis::Login_processor::verify_login(QString username,QString password) {
+    if ((this->_result = check_account(username,password))==Verification_result::Verification_Passed){
+        emit verification_passed(username);
     }else{
-        emit Verification_Failed(this->_result);
+        emit verification_failed(this->_result);
     }
 
 }

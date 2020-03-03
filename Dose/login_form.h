@@ -22,7 +22,7 @@ class Login_form : public QDialog
 
     public slots:
         void on_buttonBox_Login_accepted();
-        void indicateFailReason(Lis::Login_processor::Verification_result);
+        void indicate_fail_reason(Lis::Login_processor::Verification_result);
 
     signals:
         void login(QString userName,QString password);
