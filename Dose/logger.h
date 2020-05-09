@@ -17,7 +17,7 @@ namespace Lis {
 
         public slots:
            void write_login_history(QString username);
-           QString time_date_of_last_update();
+           QString find_time_date_of_last_update();
        // private:
 
     };

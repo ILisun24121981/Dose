@@ -25,7 +25,9 @@ void Login_form::connection(){
 void Login_form::on_buttonBox_Login_accepted()
 {
    if(ui->lineEdit_UserName->text() == NULL){
-      ui->lineEdit_UserName->setText("What a FACK?");
+      ui->lineEdit_UserName->setText("Enter your Login, please");
+   }else if(ui->lineEdit_Password->text()==NULL){
+      ui->lineEdit_Password->setText("Enter your password, please");
    }else{
         emit this->login(ui->lineEdit_UserName->text(),ui->lineEdit_Password->text());
    }

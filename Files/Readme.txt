@@ -4,3 +4,7 @@ description:logs.txt
 			again. If log.txt will be deleted Application will start sorting from first common report in 
 			"folder to search unsorted reports". If Link for "folder to store logs" not set logs.txt will 
 			be created in folder of Application.
+
+description:settings.txt
+			1.file to store main application settings
+			sittings

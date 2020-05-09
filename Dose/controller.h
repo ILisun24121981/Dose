@@ -21,9 +21,10 @@ namespace Lis {
             bool AppState;
 
             QWidget *_widget;
-            QString _username;
             Logger *_logger;
             Settings *_settings;
+
+            QString _username;//временно
 
         public slots:          
             void autorisation_passed(QString username);//слот принимающий данные от Login_processor об результате Авторизации

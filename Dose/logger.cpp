@@ -14,6 +14,8 @@ Lis::Logger::~Logger(){
 }
 
 void Lis::Logger::write_login_history(QString username){
+
+
 //
 //         QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");
 //    qDebug()<<"file opened";
@@ -43,6 +45,6 @@ void Lis::Logger::write_login_history(QString username){
 //    }
 }
 
-QString Lis::Logger::Time_Date_of_last_update(){
+QString Lis::Logger::time_date_of_last_update(){
 
 }

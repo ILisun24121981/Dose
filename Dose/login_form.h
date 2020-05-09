@@ -21,11 +21,11 @@ class Login_form : public QDialog
         void connection();
 
     public slots:
-        void on_buttonBox_Login_accepted();
-        void indicate_fail_reason(Lis::Login_processor::Verification_result);
+        void on_buttonBox_Login_accepted();//connected to Login_form::login(QString userName,QString password)
+        void indicate_fail_reason(Lis::Login_processor::Verification_result);//connected to Login_processor::verification_failed(Lis::Login_processor::Verification_result res)
 
     signals:
-        void login(QString userName,QString password);
+        void login(QString userName,QString password);//connected to Login_processor::verify_login(QString,QString)
 
     private:        
         Ui::Login_form *ui;

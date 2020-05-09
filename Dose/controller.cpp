@@ -21,7 +21,7 @@ Lis::Controller::~Controller(){
 
 }
 
-void Lis::Controller::autorisation_passed(QString username){
+void Lis::Controller::autorisation_passed(QString username){//connected to
     _username = username;
     _logger->write_login_history(username);
     delete _widget;

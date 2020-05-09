@@ -14,7 +14,7 @@ namespace Lis {
             ~Processor();
 
         public:
-            Controller *_controller;
+            Controller *_controller;//инициализируется в конструкторе каждого процессора для доступа к внешним (для процессоров) слотам
 
     };
 } //namespace Lis
