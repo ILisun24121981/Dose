@@ -7,13 +7,13 @@
 
 namespace Lis {
 
-    class Logger: public QObject, public Txt_logger
+    class Logger: public Txt_logger
     {
-        Q_OBJECT
 
         public:
             Logger();
             ~Logger();
+
 
         public slots:
            void write_login_history(QString username);

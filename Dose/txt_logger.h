@@ -5,8 +5,11 @@
 #include <QFile>
 
 namespace Lis {
-    class Txt_logger
+    class Txt_logger:public QObject
     {
+
+        Q_OBJECT
+
     public:
         Txt_logger();
         QString find_last_update_time_date();

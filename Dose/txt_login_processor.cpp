@@ -3,17 +3,18 @@
 #include <QDebug>
 #include <QFile>
 #include <QRegExp>
-#include "settings.h"
+#include "QMessageBox"
 
 Lis::Txt_login_processor::Txt_login_processor()
 {
 
 }
 
-Lis::Txt_login_processor::Verification_result Lis::Txt_login_processor::check_account(QString username,QString password){
+Lis::Login_processor::Verification_result Lis::Txt_login_processor::check_account(QString username,QString password){
     QFile loginfile(Settings::get_instance()->get(Settings::Setting_name::File_to_store_users_logins_and_passports));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        return Passport_file_problem;
+        QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");
+        return Login_processor::Verification_result::Verification_problem;
     }else{
         qDebug()<<"file opened";
         QTextStream in(&loginfile);
@@ -24,15 +25,15 @@ Lis::Txt_login_processor::Verification_result Lis::Txt_login_processor::check_ac
             if (name.exactMatch(line)){
                 QRegExp pass(".*password:"+password+"$");
                 if (pass.exactMatch(line)){
-                    return Verification_Passed;
+                    return Login_processor::Verification_result::Verification_Passed;
                 }else{
-                    return Password_not_correct;
+                    return Login_processor::Verification_result::Password_is_not_correct;
                 }
                 match =1;
             }
         }
         if(match ==0){
-            return No_such_user;
+            return Login_processor::Verification_result::Login_is_not_correct;
         }
     }
 }

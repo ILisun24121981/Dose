@@ -28,8 +28,7 @@ SOURCES += \
     repor_manager.cpp \
     settings.cpp \
     txt_logger.cpp \
-    txt_login_processor.cpp \
-    txt_processor.cpp
+    txt_login_processor.cpp
 
 HEADERS += \
     controller.h \
@@ -43,8 +42,7 @@ HEADERS += \
     repor_manager.h \
     settings.h \
     txt_logger.h \
-    txt_login_processor.h \
-    txt_processor.h
+    txt_login_processor.h
 
 FORMS += \
     login_form.ui \

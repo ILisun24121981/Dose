@@ -6,17 +6,24 @@
 #include "txt_login_processor.h"
 
 
+
 namespace Lis {
 
-    class Login_processor:public Processor,public Txt_login_processor
+    class Login_processor:public Processor,Txt_login_processor//класс бизнесс логики
     {
         //Login_processor  - класс бизнесс логики и не требует изменений при переходе ,например к работе с базой данных
-        //для данного перехода необходимо отнаследовать его от созданного класса, например, SQL_login_processor
-        //в котором реализовать метод возвращающий результат Lis::Txt_login_processor::Verification_result Lis
+        //для данного перехода необходимо отнаследовать от него класс, например, SQL_login_processor
+        //в котором реализовать метод check_account возвращающий результат типа Verification_result
 
         Q_OBJECT
 
-        public:        
+        public:
+            enum Verification_result {
+                Verification_problem,
+                Verification_Passed,
+                Login_is_not_correct,
+                Password_is_not_correct
+            };
 
             Login_processor(Controller *ct);
             ~Login_processor();
