@@ -31,6 +31,7 @@ SOURCES += \
     txt_login_processor.cpp
 
 HEADERS += \
+    Enums.h \
     controller.h \
     data_model.h \
     logger.h \

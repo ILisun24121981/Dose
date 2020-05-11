@@ -10,11 +10,11 @@ Lis::Txt_login_processor::Txt_login_processor()
 
 }
 
-Lis::Login_processor::Verification_result Lis::Txt_login_processor::check_account(QString username,QString password){
+Lis::Verification_result Lis::Txt_login_processor::verify(QString username,QString password){
     QFile loginfile(Settings::get_instance()->get(Settings::Setting_name::File_to_store_users_logins_and_passports));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");
-        return Login_processor::Verification_result::Verification_problem;
+        return Verification_result::Verification_problem;
     }else{
         qDebug()<<"file opened";
         QTextStream in(&loginfile);
@@ -25,15 +25,15 @@ Lis::Login_processor::Verification_result Lis::Txt_login_processor::check_accoun
             if (name.exactMatch(line)){
                 QRegExp pass(".*password:"+password+"$");
                 if (pass.exactMatch(line)){
-                    return Login_processor::Verification_result::Verification_Passed;
+                    return Verification_result::Verification_Passed;
                 }else{
-                    return Login_processor::Verification_result::Password_is_not_correct;
+                    return Verification_result::Password_is_not_correct;
                 }
                 match =1;
             }
         }
         if(match ==0){
-            return Login_processor::Verification_result::Login_is_not_correct;
+            return Verification_result::Login_is_not_correct;
         }
     }
 }

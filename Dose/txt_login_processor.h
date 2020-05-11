@@ -2,7 +2,7 @@
 #define TXT_LOGIN_PROCESSOR_H
 
 #include<QString>
-#include "login_processor.h"
+#include "Enums.h"
 
 namespace Lis {
 
@@ -12,7 +12,7 @@ namespace Lis {
     public:
 
         Txt_login_processor();
-        Login_processor::Verification_result check_account(QString username, QString passwprd );
+        Lis::Verification_result verify(QString username, QString passwprd );
 
     };
 

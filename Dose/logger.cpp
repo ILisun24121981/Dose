@@ -45,6 +45,6 @@ void Lis::Logger::write_login_history(QString username){
 //    }
 }
 
-QString Lis::Logger::time_date_of_last_update(){
+//QString Lis::Logger::time_date_of_last_update(){
 
-}
+//}

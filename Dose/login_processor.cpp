@@ -1,7 +1,8 @@
 #include "login_processor.h"
 
 
-Lis::Login_processor::Login_processor(Controller *ct):Processor(ct),Txt_login_processor(){
+Lis::Login_processor::Login_processor(Controller *ct):Processor(ct){
+    _strategy = new Txt_login_processor();
     connection();
 }
 
@@ -14,10 +15,11 @@ void Lis::Login_processor::connection(){
 }
 
 void Lis::Login_processor::verify_login(QString username,QString password) {
-    if ((this->_verResult = check_account(username,password))==Verification_result::Verification_Passed){
+    Verification_result vres;
+    if ((vres =_strategy->verify(username,password))== Verification_result::Verification_Passed){
         emit verification_passed(username);
     }else{
-        emit verification_failed(this->_verResult);
+        emit verification_failed(vres);
     }
 
 }
