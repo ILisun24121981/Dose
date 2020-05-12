@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "login_processor.h"
+#include "eventfilter_login_form.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Login_form; };
@@ -27,9 +28,14 @@ class Login_form : public QDialog
     signals:
         void login(QString userName,QString password);//connected to Login_processor::verify_login(QString,QString)
 
-    private:        
+//    protected:
+//        bool eventFilter(QObject *watched, QEvent *event);
+
+    private:
         Ui::Login_form *ui;
         Login_processor *_LoginProcessor;
+        EventFilter_Login_Form *_EvFilter;
+
         QString failure[4]={
             "Verification_Passed",
             "Passport_file_problem",

@@ -5,6 +5,7 @@
 #include "processor.h"
 #include "Enums.h"
 #include "txt_login_processor.h"
+#include "eventfilter_login_form.h"
 
 namespace Lis {
 

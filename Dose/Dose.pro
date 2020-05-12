@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     controller.cpp \
     data_model.cpp \
+    eventfilter_login_form.cpp \
     logger.cpp \
     login_processor.cpp \
     main.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     Enums.h \
     controller.h \
     data_model.h \
+    eventfilter_login_form.h \
     logger.h \
     login_form.h \
     login_processor.h \

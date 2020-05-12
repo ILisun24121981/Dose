@@ -1,6 +1,7 @@
 #include "login_form.h"
 #include "ui_login_form.h"
 #include "login_processor.h"
+#include "QMouseEvent"
 #include "QDebug"
 
 Login_form::Login_form(Controller *ct, QWidget *parent)
@@ -8,6 +9,9 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
     , ui(new Ui::Login_form)
 {
     ui->setupUi(this);
+    _EvFilter =new EventFilter_Login_Form(ui);
+    ui->lineEdit_UserName->installEventFilter(_EvFilter);
+    ui->lineEdit_Password->installEventFilter(_EvFilter);
     _LoginProcessor = new Login_processor(ct);
     connection();
 }
@@ -16,6 +20,7 @@ Login_form::~Login_form()
 {
     delete ui;
     delete _LoginProcessor;
+    delete _EvFilter;
 }
 
 void Login_form::connection(){
@@ -40,3 +45,21 @@ void Login_form::indicate_fail_reason(Verification_result r){
     ui->lineEdit_Password->setText(failure[r]);
     qDebug()<<"indicate";
 }
+
+//bool Login_form::eventFilter(QObject *watched, QEvent *event){
+
+//    if(event->type() == QEvent::MouseButtonPress){
+//        QMouseEvent *me = static_cast<QMouseEvent *>(event);
+//        if(me->button() == Qt::MouseButton::LeftButton){
+//            if(watched == ui->lineEdit_UserName){
+//                ui->lineEdit_UserName->clear();
+//            }
+//            if(watched == ui->lineEdit_Password){
+//                ui->lineEdit_Password->clear();
+//            }
+
+//        }
+//    }
+
+//}
+

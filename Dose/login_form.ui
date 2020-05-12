@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>226</width>
+    <width>229</width>
     <height>158</height>
    </rect>
   </property>
@@ -45,22 +45,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>buttonBox_Login</sender>
-   <signal>accepted()</signal>
-   <receiver>Login_form</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>138</x>
-     <y>120</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>112</x>
-     <y>63</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox_Login</sender>
    <signal>rejected()</signal>
