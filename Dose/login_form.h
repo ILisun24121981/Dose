@@ -19,7 +19,7 @@ class Login_form : public QDialog
     public:
         Login_form(Controller *ct = nullptr,QWidget *parent = nullptr);
         ~Login_form();
-        void connection();
+
 
     public slots:
         void on_buttonBox_Login_accepted();//connected to Login_form::login(QString userName,QString password)
@@ -28,19 +28,17 @@ class Login_form : public QDialog
     signals:
         void login(QString userName,QString password);//connected to Login_processor::verify_login(QString,QString)
 
-//    protected:
-//        bool eventFilter(QObject *watched, QEvent *event);
-
     private:
+        void connection();
+
         Ui::Login_form *ui;
         Login_processor *_LoginProcessor;
         EventFilter_Login_Form *_EvFilter;
 
-        QString failure[4]={
-            "Verification_Passed",
-            "Passport_file_problem",
-            "No_such_user",
-            "Password_not_correct"
+        QString failure[3]={
+            "Verification_problem",
+            "Login_is_not_correct",
+            "Password_is_not_correct",
         };
 
 };

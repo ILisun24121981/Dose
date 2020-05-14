@@ -12,25 +12,20 @@ namespace Lis {
 
     class Login_processor:public Processor//класс бизнесс логики
     {
+        //Класс предназначен для связи выполнение бизнес действий (авторизации).
         //Login_processor  - класс бизнесс логики и не требует изменений при переходе ,например к работе с базой данных
-        //для данного перехода необходимо отнаследовать от него класс, например, SQL_login_processor
+        //для данного перехода необходимо реализовать класс стратегии, например, SQL_login_processor
         //в котором реализовать метод check_account возвращающий результат типа Verification_result
+        //и создать/добавить его экземпляр в свойство _strategy.
 
         Q_OBJECT
 
 
         public:
-//            enum Verification_result {
-//                Verification_problem,
-//                Verification_Passed,
-//                Login_is_not_correct,
-//                Password_is_not_correct
-//            };
-//            Q_ENUM(Verification_result)
 
             Login_processor(Controller *ct);
             ~Login_processor();
-            void connection();
+
 
             Txt_login_processor *_strategy;
 
@@ -41,6 +36,8 @@ namespace Lis {
             void verification_failed(Verification_result res);//connected to Login_form::indicate_fail_reason(Lis::Login_processor::Verification_result)
             void verification_passed(QString username);//connected to Controller::autorisation_passed(QString)
 
+        private:
+            void connection();
      };
 
 } //namespace Lis

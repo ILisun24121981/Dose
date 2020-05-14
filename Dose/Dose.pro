@@ -19,14 +19,13 @@ SOURCES += \
     controller.cpp \
     data_model.cpp \
     eventfilter_login_form.cpp \
-    logger.cpp \
     login_processor.cpp \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
     mainwindow_processor.cpp \
     processor.cpp \
-    repor_manager.cpp \
+    report_manager.cpp \
     settings.cpp \
     txt_logger.cpp \
     txt_login_processor.cpp
@@ -36,13 +35,12 @@ HEADERS += \
     controller.h \
     data_model.h \
     eventfilter_login_form.h \
-    logger.h \
     login_form.h \
     login_processor.h \
     mainwindow.h \
     mainwindow_processor.h \
     processor.h \
-    repor_manager.h \
+    report_manager.h \
     settings.h \
     txt_logger.h \
     txt_login_processor.h

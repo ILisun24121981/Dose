@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
-#include "logger.h"
+#include "txt_logger.h"
 #include "settings.h"
 
 
@@ -21,13 +21,13 @@ namespace Lis {
             bool AppState;
 
             QWidget *_widget;
-            Logger *_logger;
+            Txt_logger *_logger;
             Settings *_settings;
 
             QString _username;//временно
 
         public slots:          
-            void autorisation_passed(QString username);//слот принимающий данные от Login_processor об результате Авторизации
+            void autorisation_pass(QString username);//слот принимающий данные от Login_processor об результате Авторизации
 
     };
 

@@ -19,6 +19,8 @@ class MainWindow : public QMainWindow
         ~MainWindow();
 
     private:
+        void connection();
+
         Ui::MainWindow *ui;
         MainWindow_processor *_mw_processor;
         QString User;

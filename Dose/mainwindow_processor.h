@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "processor.h"
+#include "report_manager.h"
 
 namespace Lis {
 
@@ -14,7 +15,13 @@ namespace Lis {
         public:
             MainWindow_processor(Controller *ct);
             ~MainWindow_processor();
+
+            Report_manager *_repManager;
+
+       private:
             void connection();
+
+
     };
 }
 #endif // MAINWINDOW_PROCESSOR_H

@@ -11,7 +11,7 @@ Lis::Txt_login_processor::Txt_login_processor()
 }
 
 Lis::Verification_result Lis::Txt_login_processor::verify(QString username,QString password){
-    QFile loginfile(Settings::get_instance()->get(Settings::Setting_name::File_to_store_users_logins_and_passports));
+    QFile loginfile((Settings::get_instance()->get(Lis::Setting_name::Logins_and_passports_file_folder)+ "Login.txt"));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");
         return Verification_result::Verification_problem;

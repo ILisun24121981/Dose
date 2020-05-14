@@ -46,20 +46,4 @@ void Login_form::indicate_fail_reason(Verification_result r){
     qDebug()<<"indicate";
 }
 
-//bool Login_form::eventFilter(QObject *watched, QEvent *event){
-
-//    if(event->type() == QEvent::MouseButtonPress){
-//        QMouseEvent *me = static_cast<QMouseEvent *>(event);
-//        if(me->button() == Qt::MouseButton::LeftButton){
-//            if(watched == ui->lineEdit_UserName){
-//                ui->lineEdit_UserName->clear();
-//            }
-//            if(watched == ui->lineEdit_Password){
-//                ui->lineEdit_Password->clear();
-//            }
-
-//        }
-//    }
-
-//}
 

@@ -11,7 +11,7 @@ Lis::Login_processor::~Login_processor(){
 }
 
 void Lis::Login_processor::connection(){
-    QObject::connect(this,SIGNAL(verification_passed(QString)),this->_controller,SLOT(autorisation_passed(QString)));
+    QObject::connect(this,SIGNAL(verification_passed(QString)),this->_controller,SLOT(autorisation_pass(QString)));
 }
 
 void Lis::Login_processor::verify_login(QString username,QString password) {

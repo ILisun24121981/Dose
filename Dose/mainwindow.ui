@@ -46,21 +46,14 @@
       <x>10</x>
       <y>30</y>
       <width>160</width>
-      <height>54</height>
+      <height>131</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QPushButton" name="UpdateCalData">
+      <widget class="QPushButton" name="btn_UpdComRawRep">
        <property name="text">
-        <string>Update Calibration Data</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>View Common Data</string>
+        <string>UpdateCommonRawReport</string>
        </property>
       </widget>
      </item>
@@ -73,7 +66,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

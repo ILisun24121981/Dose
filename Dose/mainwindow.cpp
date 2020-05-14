@@ -5,16 +5,19 @@
 MainWindow::MainWindow(Controller *ct,QWidget *parent )
     :QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
-    qDebug()<< "1";
+{    
     ui->setupUi(this);
-    qDebug()<< "2";
     ui->label_UserName->setText(ct->_username);
     qDebug()<< "MW created";
     _mw_processor = new MainWindow_processor(ct);
+    connection();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::connection(){
+    QObject::connect(ui->btn_UpdComRawRep,SIGNAL(clicked()),this->_mw_processor->_repManager,SLOT(update_common_raw_report()));
 }

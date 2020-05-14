@@ -3,12 +3,22 @@
 
 
 namespace Lis {
+    //
 
     enum Verification_result {
         Verification_problem,
-        Verification_Passed,
         Login_is_not_correct,
-        Password_is_not_correct
+        Password_is_not_correct,
+        Verification_Passed
+    };
+
+    //Используется для формирования вектора содержащего настройки (Settings.h/cpp)
+    //Порядок должен совпадать с порядком перечисления настроек в файле Settings.txt
+    enum Setting_name {
+        Logins_and_passports_file_folder,
+        Common_reports_folder,
+        Personal_reports_folder,
+        Logs_file_folder
     };
 }
 

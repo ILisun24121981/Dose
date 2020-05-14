@@ -8,3 +8,11 @@ description:logs.txt
 description:settings.txt
 			1.file to store main application settings
 			sittings
+
+
+CommonRawReport - Report containing all rows from all standard raw reports.
+
+UpdateCommonRawReport (Button)	-	Takes "LastCommonReportUpdateTime" parameter from Log.txt file and update CommonRawReport.txt
+					with new rows by scanning all standard raw reports from date/time of parameter value. 
+					"LastCommonReportUpdate" parameter is updated every time CommonRawReport.txt update has finished.
+					This report is a base of data for all other reports and need to be filled to form other reports. 
