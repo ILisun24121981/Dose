@@ -1,8 +1,10 @@
 #ifndef TXT_LOGGER_H
 #define TXT_LOGGER_H
 
+#include <QObject>
 #include <QString>
-#include <QFile>
+#include <QStringList>
+
 
 namespace Lis {
     class Txt_logger:public QObject
@@ -12,10 +14,10 @@ namespace Lis {
 
     public:
         Txt_logger();
-        QString find_last_update_time_date();
+        QStringList* find_last_updated_point(QString reportName);
 
     private:
-        QFile *_logFile;
+        QString _logFileLink;
     };
 }
 

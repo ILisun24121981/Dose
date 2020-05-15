@@ -11,15 +11,17 @@ namespace Lis {
     {
         Q_OBJECT
 
+
         public:
             Report_manager(Controller *ct, QObject *parent);
 
         public slots:
             void update_common_raw_report();
 
-        protected:
-
-            QFile *_comRawRep;
+        private:
+//            QString get_raw_from_report(QFile *report);
+//            void put_raw_into_report(QString);
+//            void copy_report(QFile *report);
 
     };
 }

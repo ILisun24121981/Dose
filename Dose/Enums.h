@@ -20,6 +20,11 @@ namespace Lis {
         Personal_reports_folder,
         Logs_file_folder
     };
+
+    enum Updated_point{
+        File_name,
+        Time_date
+    };
 }
 
 #endif // ENUMS_H
