@@ -8,8 +8,8 @@ MainWindow::MainWindow(Controller *ct,QWidget *parent )
 {    
     ui->setupUi(this);
     ui->label_UserName->setText(ct->_username);
-    qDebug()<< "MW created";
-    _mw_processor = new MainWindow_processor(ct);
+    _repMng = new Report_manager(ct,this);
+    qDebug()<< "MW created";   
     connection();
 }
 
@@ -19,5 +19,5 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::connection(){
-    QObject::connect(ui->btn_UpdComRawRep,SIGNAL(clicked()),this->_mw_processor->_repManager,SLOT(update_common_raw_report()));
+    QObject::connect(ui->btn_UpdComRawRep,SIGNAL(clicked()),this->_repMng,SLOT(update_common_raw_report()));
 }

@@ -2,8 +2,7 @@
 #include "settings.h"
 #include <QDebug>
 
-Lis::Report_manager::Report_manager(Controller *ct)
-{
+Lis::Report_manager::Report_manager(Controller *ct, QObject *parent):Processor(ct,parent){
 
 }
 

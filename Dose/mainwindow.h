@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mainwindow_processor.h"
+#include "report_manager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; };
@@ -21,8 +21,8 @@ class MainWindow : public QMainWindow
     private:
         void connection();
 
-        Ui::MainWindow *ui;
-        MainWindow_processor *_mw_processor;
+        Ui::MainWindow *ui;       
+        Report_manager *_repMng;
         QString User;
 };
 

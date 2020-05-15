@@ -1,33 +1,30 @@
 #ifndef LOGINNER_H
 #define LOGINNER_H
 
-#include <QObject>
 #include "processor.h"
 #include "Enums.h"
-#include "txt_login_processor.h"
-#include "eventfilter_login_form.h"
+#include "i_txt_login.h"
+
 
 namespace Lis {
 
 
-    class Login_processor:public Processor//класс бизнесс логики
+    class Login_processor:public Processor, public I_Txt_login
     {
         //Класс предназначен для связи выполнение бизнес действий (авторизации).
         //Login_processor  - класс бизнесс логики и не требует изменений при переходе ,например к работе с базой данных
-        //для данного перехода необходимо реализовать класс стратегии, например, SQL_login_processor
-        //в котором реализовать метод check_account возвращающий результат типа Verification_result
-        //и создать/добавить его экземпляр в свойство _strategy.
+        //для данного перехода необходимо реализовать интерфейс, например, I_SQL_login
+        //в котором реализовать метод verify возвращающий результат типа Verification_result
+        //и добавить его в качастве второго радителя к классу Login_processor.
 
         Q_OBJECT
 
 
         public:
 
-            Login_processor(Controller *ct);
+            Login_processor(Controller *ct,QObject *parent);
             ~Login_processor();
 
-
-            Txt_login_processor *_strategy;
 
         public slots:
             void verify_login(QString username,QString password);//connected to Login_form::login(QString userName,QString password)

@@ -1,16 +1,12 @@
-#include "txt_login_processor.h"
+#include "i_txt_login.h"
 #include "settings.h"
 #include <QDebug>
 #include <QFile>
 #include <QRegExp>
 #include "QMessageBox"
 
-Lis::Txt_login_processor::Txt_login_processor()
-{
 
-}
-
-Lis::Verification_result Lis::Txt_login_processor::verify(QString username,QString password){
+Lis::Verification_result Lis::I_Txt_login::verify(QString username,QString password){
     QFile loginfile((Settings::get_instance()->get(Lis::Setting_name::Logins_and_passports_file_folder)+ "Login.txt"));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");

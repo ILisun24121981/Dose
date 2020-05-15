@@ -10,11 +10,10 @@ namespace Lis {
     {
 
         public:
-            Processor(Controller *ct);
+            Processor(Controller *ct,QObject *parent =nullptr);
             ~Processor();
 
-            Controller *_controller;//инициализируется в конструкторе каждого процессора для доступа к внешним (для процессоров) слотам
-
+            Controller *_controller;//инициализируется в конструкторе каждого процессора для доступа к внешним (для процессоров) слотам      
     };
 } //namespace Lis
 #endif // PROCESSOR_H

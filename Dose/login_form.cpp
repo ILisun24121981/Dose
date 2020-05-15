@@ -12,7 +12,7 @@ Login_form::Login_form(Controller *ct, QWidget *parent)
     _EvFilter =new EventFilter_Login_Form(ui);
     ui->lineEdit_UserName->installEventFilter(_EvFilter);
     ui->lineEdit_Password->installEventFilter(_EvFilter);
-    _LoginProcessor = new Login_processor(ct);
+    _LoginProcessor = new Login_processor(ct,this);
     connection();
 }
 
@@ -25,7 +25,6 @@ Login_form::~Login_form()
 
 void Login_form::connection(){
     QObject::connect(this,SIGNAL(login(QString,QString)),this->_LoginProcessor,SLOT(verify_login(QString,QString)));
-    QObject::connect(this->_LoginProcessor,SIGNAL(verification_failed(Verification_result)),this,SLOT(indicate_fail_reason(Verification_result)));
 }
 
 void Login_form::on_buttonBox_Login_accepted()
