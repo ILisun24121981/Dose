@@ -41,10 +41,14 @@ void Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QString 
     QTextStream out(destination);
     QString line;
 
-
-    if(destination->size()==0){//если файл чистый  - только создан.
+    if((destination->size())== 0){//если файл чистый  - только создан.
+        qDebug()<<"File empty";
         line = in.readLine();
         out << line <<"\n";
+    }else{
+       qDebug()<<"File filled";
+       out.seek(destination->size());
+       qDebug()<<out.pos();
     }
 
     int rawfound =0;
@@ -66,6 +70,9 @@ void Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QString 
             }
         }
     }
+    out.flush();
+    qDebug()<<"OUTsize";
+    qDebug()<<destination->size();
 }
 
 

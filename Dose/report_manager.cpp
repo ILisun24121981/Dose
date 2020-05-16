@@ -21,7 +21,7 @@ void Lis::Report_manager::update_common_raw_report(){
     QStringList *lastUpdatePoint = new QStringList();
     QString cowRawRepLink = (Lis::Settings::get_instance()->get(Lis::Setting_name::Common_reports_folder))+ reportName;
     QFile *comRawRep = new QFile(cowRawRepLink,&trash);
-    if(comRawRep->open(QIODevice::WriteOnly | QFile::Text)){
+    if(comRawRep->open(QIODevice::ReadWrite | QFile::Text)){
         qDebug()<<"CommonRawReport.txt opened";
         //Ищем точку которой закончилось последнее обновление отчета
         bool point_found =_controller->_logger->find_last_updated_point_data(reportName,lastUpdatePoint);
@@ -42,6 +42,8 @@ void Lis::Report_manager::update_common_raw_report(){
 
 
     }
+    comRawRep->flush();
+    comRawRep->close();
     delete lastUpdatePoint;
 }
 
