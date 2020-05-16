@@ -27,6 +27,7 @@ SOURCES += \
     report_manager.cpp \
     settings.cpp \
     trash_cleaner.cpp \
+    txt_helper.cpp \
     txt_logger.cpp
 
 HEADERS += \
@@ -41,6 +42,7 @@ HEADERS += \
     report_manager.h \
     settings.h \
     trash_cleaner.h \
+    txt_helper.h \
     txt_logger.h
 
 FORMS += \

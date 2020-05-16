@@ -6,6 +6,7 @@
 #include <QStringList>
 
 
+
 namespace Lis {
     class Txt_logger:public QObject
     {
@@ -14,10 +15,11 @@ namespace Lis {
 
     public:
         Txt_logger();
-        void find_last_updated_point_data(QString reportName,QStringList *point);
+        bool find_last_updated_point_data(QString reportName,QStringList *point);
 
     private:
         QString _logFileLink;
+
     };
 }
 

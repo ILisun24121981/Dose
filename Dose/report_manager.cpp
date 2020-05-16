@@ -21,23 +21,17 @@ void Lis::Report_manager::update_common_raw_report(){
         qDebug()<<"CommonRawReport.txt opened";
         //Ищем точку которой закончилось последнее обновление отчета
         this->_controller->_logger->find_last_updated_point_data(reportName,lastUpdatePoint);
-        qDebug()<<lastUpdatePoint->at(Updated_point::File_name);
-        qDebug()<<lastUpdatePoint->at(Updated_point::Time_date);
         QFile *source = new QFile((Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder))+(lastUpdatePoint->at(Updated_point::File_name)),&trash);
         if (!source->open(QIODevice::ReadOnly | QIODevice::Text)){
              QMessageBox::information(NULL, QObject::tr("Error"),"Can not open " + lastUpdatePoint->at(Updated_point::File_name) +" from where "+reportName+" update was finished");
         }else{
             copy_data(comRawRep,source,&(lastUpdatePoint->at(Updated_point::Time_date)));
-
         }
-    }
-    while(1){
-
     }
     delete lastUpdatePoint;
 }
 
-void Lis::Report_manager::copy_data(QFile *destination,QFile *source,const QString *row ){
+void Lis::Report_manager::copy_data(QFile *destination,QFile *source,const QString *row ){//row - строка ниже которой будет производиться копирование
 
     QTextStream in(source);
     QTextStream out(destination);
@@ -63,7 +57,7 @@ void Lis::Report_manager::copy_data(QFile *destination,QFile *source,const QStri
             QRegExp search("^("+ *row +").*$");
             int pos=search.indexIn(line);
             if(pos!=-1){
-                qDebug()<<"Raw_is_found:"+line;
+                //qDebug()<<"Raw_is_found:"+line;
                 rawfound =1;
             }
         }
