@@ -13,12 +13,12 @@ Lis::Txt_logger::Txt_logger()
     qDebug()<<"Logs.txt link saved";
 
 }
-QStringList* Lis::Txt_logger::find_last_updated_point(QString reportName){
+QStringList* Lis::Txt_logger::find_last_updated_point_data(QString reportName){
     qDebug()<<"Cap ";
-     QFile logFile(_logFileLink);
+    QStringList *point = new QStringList();
+    QFile logFile(_logFileLink);
     if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
         QTextStream in(&logFile);
-        QStringList *point =new QStringList();
         while (!in.atEnd()) {
             QString line = in.readLine();
             //Ищем подходящую строку в файле
@@ -54,9 +54,8 @@ QStringList* Lis::Txt_logger::find_last_updated_point(QString reportName){
                 qDebug()<<"No cap1";
             }
         }
-        return point;
     }
-    //return "Cant open file";
+    return point;
 }
 
 

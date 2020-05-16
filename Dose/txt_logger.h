@@ -14,7 +14,7 @@ namespace Lis {
 
     public:
         Txt_logger();
-        QStringList* find_last_updated_point(QString reportName);
+        QStringList* find_last_updated_point_data(QString reportName);
 
     private:
         QString _logFileLink;

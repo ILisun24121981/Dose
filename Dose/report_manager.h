@@ -19,6 +19,7 @@ namespace Lis {
             void update_common_raw_report();
 
         private:
+            //
 //            QString get_raw_from_report(QFile *report);
 //            void put_raw_into_report(QString);
 //            void copy_report(QFile *report);

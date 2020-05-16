@@ -16,6 +16,7 @@ namespace Lis {
     //Порядок должен совпадать с порядком перечисления настроек в файле Settings.txt
     enum Setting_name {
         Logins_and_passports_file_folder,
+        Raw_standard_reports_folder,
         Common_reports_folder,
         Personal_reports_folder,
         Logs_file_folder
