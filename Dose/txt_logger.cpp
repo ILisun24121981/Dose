@@ -13,9 +13,8 @@ Lis::Txt_logger::Txt_logger()
     qDebug()<<"Logs.txt link saved";
 
 }
-QStringList* Lis::Txt_logger::find_last_updated_point_data(QString reportName){
+void Lis::Txt_logger::find_last_updated_point_data(QString reportName,QStringList *point){
     qDebug()<<"Cap ";
-    QStringList *point = new QStringList();
     QFile logFile(_logFileLink);
     if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
         QTextStream in(&logFile);
@@ -55,7 +54,6 @@ QStringList* Lis::Txt_logger::find_last_updated_point_data(QString reportName){
             }
         }
     }
-    return point;
 }
 
 
