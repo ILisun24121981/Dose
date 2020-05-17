@@ -15,11 +15,12 @@ namespace Lis {
 
     public:
         Txt_logger();
-        bool find_last_updated_point_data(QString reportName,QStringList *point);
+        bool find_last_updated_line_data(const QString reportName,QString &fileData,QString &timeData);
+        bool set_last_updated_line_data(const QString reportName, const QString fileData,const QString timeData);
 
     private:
         QString _logFileLink;
-
+        QString _tempFileLink;
     };
 }
 

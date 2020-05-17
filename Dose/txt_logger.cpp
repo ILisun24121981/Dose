@@ -12,10 +12,11 @@ Lis::Txt_logger::Txt_logger()
 {
 
     _logFileLink = (Lis::Settings::get_instance()->get(Lis::Setting_name::Logs_file_folder))+"Logs.txt";
+    _tempFileLink = (Lis::Settings::get_instance()->get(Lis::Setting_name::Logs_file_folder))+"tempLogs.txt";
     qDebug()<<"Logs.txt link saved";
 
 }
-bool Lis::Txt_logger::find_last_updated_point_data(QString reportName,QStringList *point){
+bool Lis::Txt_logger::find_last_updated_line_data(const QString reportName, QString &fileData, QString &timeData){
     Txt_helper helper;
     qDebug()<<"Serching last updated point of "+reportName+" in Logs.txt";
     QFile logFile(_logFileLink);
@@ -27,12 +28,12 @@ bool Lis::Txt_logger::find_last_updated_point_data(QString reportName,QStringLis
             QString file = helper.find_data_in_line(pattern,line);
             qDebug()<<"File:"+file;
             if(file != NULL){
-                point->append(file);
+                fileData=file;
                 pattern = "(?:time/date=)(.*)$";
-                QString timedate = helper.find_data_in_line(pattern,line);
-                qDebug()<<"Time/Date: "+file;
-                if(timedate!=NULL){
-                    point->append(timedate);
+                QString time = helper.find_data_in_line(pattern,line);
+                qDebug()<<"Time/Date: "+time;
+                if(time!=NULL){
+                    timeData =time;
                     return true;
                 }
             }
@@ -40,11 +41,23 @@ bool Lis::Txt_logger::find_last_updated_point_data(QString reportName,QStringLis
     }
     return false;
 }
+bool Lis::Txt_logger::set_last_updated_line_data(const QString reportName,const QString fileData,const QString timeData){
 
+    Txt_helper helper;
+    QString line = reportName+" last updated point: file="+fileData+", time/date="+timeData;
+    qDebug()<<"Serching last updated point of "+reportName+" in Logs.txt";
+    QFile logFile(_logFileLink);
+    if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
+        QFile tempFile(_tempFileLink);
+        if(tempFile.open(QIODevice::ReadWrite | QFile::Text)){
+            QString pattern = "^("+reportName+"\\slast\\supdated\\spoint:\\s).*$";
+            helper.replace_line(pattern,line,&logFile,&tempFile);
+            tempFile.close();
+        }
+        logFile.close();
+    }
 
-
-
-
+}
 
 
 
