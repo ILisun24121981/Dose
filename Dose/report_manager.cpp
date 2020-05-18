@@ -2,6 +2,7 @@
 #include "settings.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QDir>
 #include "trash_cleaner.h"
 #include "txt_helper.h"
 
@@ -13,26 +14,35 @@ void Lis::Report_manager::update_common_raw_report(){
     Txt_helper helper;
     QString line;
     QString pattern;
+    QStringList *filelist;
     QString fileName = "CommonRawReport.txt";
-    QString link = (Lis::Settings::get_instance()->get(Lis::Setting_name::Common_reports_folder))+ fileName;
-    QFile comRawRep(link);
+    QString dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Common_reports_folder);
+    QFile comRawRep(dir+ fileName);
     comRawRep.open(QIODevice::ReadWrite | QFile::Text);
     qDebug()<<"CommonRawReport.txt opened";
     line =helper.get_last_line(&comRawRep);
     qDebug()<<"Last line in "+fileName+" is: " +line;
+    dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder);
     if(line!=NULL){
         pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
         QString date = helper.find_data_in_line(pattern,line);
         qDebug()<<"date is: "+date;
         fileName =helper.convert_date_to_file_name(date);
-        link = (Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder))+ fileName;
-        QFile source(link);
+        QFile source(dir+ fileName);
         if(!source.open(QIODevice::ReadOnly | QFile::Text)){
             QMessageBox::information(NULL, QObject::tr("Error"),"Can not open " + fileName +" to continue copiing lines");
             return;
         }
         helper.copy_lines(&comRawRep,&source,line);
+        filelist =helper.get_file_list(dir,fileName);
+    }else{
+        filelist =helper.get_file_list(dir);
     }
+    if(filelist == nullptr){
+        return;
+    }
+    helper.copy_files_to_file(&comRawRep,dir,filelist);
+    delete filelist;
 }
 
 //void Lis::Report_manager::update_common_raw_report(){

@@ -15,6 +15,7 @@ namespace Lis {
         public:
             Report_manager(Controller *ct, QObject *parent);
 
+
         public slots:
             void update_common_raw_report();
 
