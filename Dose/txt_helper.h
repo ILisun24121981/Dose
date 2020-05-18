@@ -14,6 +14,9 @@ namespace Lis {
         QString find_data_in_line(const QString &pattern, QString line);
         bool replace_line(const QString &pattern,const QString newline, QFile *source,QFile *temp);
         QString copy_lines(QFile *destination,QFile *source, const QString &pattern =NULL);//pattern - шаблон строки ниже которой начнется копирование
+
+        QString get_last_line(QFile *file);
+        QString convert_date_to_file_name(QString date);
     };
 }
 #endif // TXT_HELPER_H

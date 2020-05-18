@@ -25,15 +25,15 @@ QString Lis::Txt_helper::find_data_in_line(const QString &pattern, QString line)
     QRegExp search(pattern);
     int pos=search.indexIn(line);
     if(pos!=-1){
-        //Заготовка для тестирования регулярки
-        QStringList list;
-        list = search.capturedTexts();
-        QStringListIterator iter(list);
-        while(iter.hasNext()){
-            qDebug()<<"captured";
-            qDebug()<<iter.next();
-        }
-        //
+//        //Заготовка для тестирования регулярки
+//        QStringList list;
+//        list = search.capturedTexts();
+//        QStringListIterator iter(list);
+//        while(iter.hasNext()){
+//            qDebug()<<"captured";
+//            qDebug()<<iter.next();
+//        }
+//        //
         return search.cap(1);
     }
     return NULL;
@@ -86,6 +86,8 @@ QString Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QStri
         return line;
     }
     qDebug()<<"No line to copy";
+    destination->seek(0);
+    source->seek(0);
     return NULL;
 }
 
@@ -121,4 +123,44 @@ bool Lis::Txt_helper::replace_line(const QString &pattern, const QString newline
     }
     qDebug()<<"line to replace not found";
     return false;
+}
+
+QString Lis::Txt_helper::get_last_line(QFile *file){
+    QString line;
+
+    if((file->size())== 0){//если файл чистый  - только создан - копируем заголовок
+        return NULL;
+    }
+    QTextStream in(file);
+    while (!in.atEnd()) {
+        line = in.readLine();
+    }
+    return line;
+
+}
+QString Lis::Txt_helper::convert_date_to_file_name(QString date){
+
+    QString temp;
+    QString convertedDate;
+    QString pattern ="\\d";
+    QRegExp check(pattern);
+
+    pattern = "/([^/]+)$";
+    convertedDate = find_data_in_line(pattern,date);
+    pattern = "^([^/]+)/";
+    temp = find_data_in_line(pattern,date);
+    if(temp.count(check)==1){
+       convertedDate=convertedDate+"0";
+    }
+    convertedDate+=temp;
+    pattern = "(?:/)([^/]+)(?:/)";
+    temp = find_data_in_line(pattern,date);
+    if(temp.count(check)==1){
+       convertedDate=convertedDate+"0";
+    }
+    convertedDate+=temp;
+    convertedDate+="мкЗвN2.log";
+    qDebug()<<"FileName of last line is: "+convertedDate;
+    return convertedDate;
+
 }
