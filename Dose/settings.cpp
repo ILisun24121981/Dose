@@ -28,32 +28,31 @@ bool Lis::Settings::init(){
     if (!Settingfile.open(QIODevice::ReadOnly | QIODevice::Text)){
          QMessageBox::information(NULL, QObject::tr("Error"),"Can not open Setting file");
          return false;
-    }else{
-        qDebug()<<"file opened";
-        QTextStream in(&Settingfile);
-        QString text;
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            QRegExp name("(?:\")(.*)(?=\".*)");
-            int pos=name.indexIn(line);
+    }
+    qDebug()<<"file opened";
+    QTextStream in(&Settingfile);
+    QString text;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QRegExp name("(?:\")(.*)(?=\".*)");
+        int pos=name.indexIn(line);
+        if(pos!=-1){
+            text = name.cap(1);
+            qDebug()<<"What:"+text;
+            QRegExp value("(?:<)(.*)(?=>.*)");
+            pos=value.indexIn(line);
             if(pos!=-1){
-                text = name.cap(1);
-                qDebug()<<"What:"+text;
-                QRegExp value("(?:<)(.*)(?=>.*)");
-                pos=value.indexIn(line);
-                if(pos!=-1){
-                    text = value.cap(1);
-                    text.replace("\\","/");
-                    qDebug()<<"Where:"+text;
-                    this->_settings->append(text);
-                }else{
-                    QMessageBox::information(NULL, QObject::tr("Error"),"check setting file for setted "+text);
-                    return false;
-               }
-            }
+                text = value.cap(1);
+                text.replace("\\","/");
+                qDebug()<<"Where:"+text;
+                this->_settings->append(text);
+            }else{
+                QMessageBox::information(NULL, QObject::tr("Error"),"check setting file for setted "+text);
+                return false;
+           }
         }
     }
-   return true;
+    return true;
 }
 
 QString Lis::Settings::get(Setting_name sn){

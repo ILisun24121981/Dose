@@ -16,7 +16,7 @@ void Lis::Report_manager::update_common_raw_report(){
     QString pattern;
     QStringList *filelist;
     QString fileName = "CommonRawReport.txt";
-    QString dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Common_reports_folder);
+    QString dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_reports_folder);
     QFile comRawRep(dir+ fileName);
     comRawRep.open(QIODevice::ReadWrite | QFile::Text);
     qDebug()<<"CommonRawReport.txt opened";
@@ -43,6 +43,40 @@ void Lis::Report_manager::update_common_raw_report(){
     }
     helper.copy_files_to_file(&comRawRep,dir,filelist);
     delete filelist;
+}
+
+void Lis::Report_manager::update_personal_raw_reports(){
+
+    QStringList *loginList =get_login_list();
+
+    int i=0;
+    while (i<loginList->size()){
+        i++;
+    }
+
+}
+
+QStringList* Lis::Report_manager::get_login_list(){
+    QFile loginfile((Settings::get_instance()->get(Lis::Setting_name::Logins_and_passports_file_folder)+ "Login.txt"));
+    if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");
+        return nullptr;
+    }
+    QStringList *list = new QStringList();
+    QTextStream in(&loginfile);
+    QRegExp search("name:(.+)\\s");
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        //Ищем подходящую строку в файле
+        int pos=search.indexIn(line);
+        if(pos!=-1){
+           list->append(search.cap(1));
+        }
+    }
+    qDebug()<<"Lofin list: ";
+    qDebug()<<*list;
+    return list;
+
 }
 
 //void Lis::Report_manager::update_common_raw_report(){

@@ -18,7 +18,10 @@ namespace Lis {
 
         public slots:
             void update_common_raw_report();
+            void update_personal_raw_reports();
 
+        private:
+            QStringList* get_login_list();
 
     };
 }

@@ -215,7 +215,8 @@ QStringList* Lis::Txt_helper::get_file_list(QString dir,QString borderFile){
 
 }
 void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sourceDir, QStringList *sourcefileList){
-
+    //копирует все строки файлов перечисленных в sorcefileList находящихся в директории
+    //sourceDir в файл destination
     int i=0;
     while(i<sourcefileList->size()){
         QFile source(sourceDir+sourcefileList->at(i));

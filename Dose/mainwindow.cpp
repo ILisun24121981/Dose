@@ -20,4 +20,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::connection(){
     QObject::connect(ui->btn_UpdComRawRep,SIGNAL(clicked()),this->_repMng,SLOT(update_common_raw_report()));
+    QObject::connect(ui->btn_UpdPerRawReps,SIGNAL(clicked()),this->_repMng,SLOT(update_personal_raw_reports()));
 }
