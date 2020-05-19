@@ -25,7 +25,7 @@ void Lis::Report_manager::update_common_raw_report(){
     dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder);
     if(line!=NULL){
         pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
-        QString date = helper.find_data_in_line(pattern,line);
+        QString date = helper.get_data_from_line(pattern,line);
         qDebug()<<"date is: "+date;
         fileName =helper.convert_date_to_file_name(date);
         QFile source(dir+ fileName);
@@ -34,9 +34,9 @@ void Lis::Report_manager::update_common_raw_report(){
             return;
         }
         helper.copy_lines(&comRawRep,&source,line);
-        filelist =helper.get_file_list(dir,fileName);
+        filelist =helper.get_files_list_from_dir(dir,fileName);
     }else{
-        filelist =helper.get_file_list(dir);
+        filelist =helper.get_files_list_from_dir(dir);
     }
     if(filelist == nullptr){
         return;
@@ -46,11 +46,25 @@ void Lis::Report_manager::update_common_raw_report(){
 }
 
 void Lis::Report_manager::update_personal_raw_reports(){
-
+    //обновляет персональные отчеты строками
+    Txt_helper helper;
     QStringList *loginList =get_login_list();
+    if(loginList == nullptr){
+        return;
+    }
 
+    QFile comRawRep(Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_reports_folder)+ "CommonRawReport.txt");
+    comRawRep.open(QIODevice::ReadWrite | QFile::Text);
+    if(comRawRep.size()==0){
+        QMessageBox::information(NULL, QObject::tr("Alert"),"Please fill Common Raw Report firstly");
+        return;
+    }
     int i=0;
     while (i<loginList->size()){
+        QString pattern = loginList->at(i);
+        QFile persRawRep(Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_reports_folder)+loginList->at(i)+"_RawReport.txt");
+        persRawRep.open(QIODevice::ReadWrite | QFile::Text);
+        helper.copy_lines(&persRawRep,&comRawRep,helper.get_last_line(&persRawRep),pattern);
         i++;
     }
 
@@ -59,7 +73,7 @@ void Lis::Report_manager::update_personal_raw_reports(){
 QStringList* Lis::Report_manager::get_login_list(){
     QFile loginfile((Settings::get_instance()->get(Lis::Setting_name::Logins_and_passports_file_folder)+ "Login.txt"));
     if (!loginfile.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::information(NULL, QObject::tr("Error"),"Passport_file_problem");
+        QMessageBox::information(NULL, QObject::tr("Error"),"Login.txt_file_problem cant extract logins to fill logins list");
         return nullptr;
     }
     QStringList *list = new QStringList();

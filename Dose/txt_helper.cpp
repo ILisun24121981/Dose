@@ -9,8 +9,8 @@ Lis::Txt_helper::Txt_helper()
 
 }
 
-QString Lis::Txt_helper::find_line_in_file(const QString &pattern, QFile *file){
-    //ищет в файле строку подходящую шаблону
+QString Lis::Txt_helper::get_line_from_file(const QString &pattern, QFile *file){
+    //возвращает из файла строку подходящую шаблону
 
     QTextStream in(file);
     QRegExp search(pattern);
@@ -24,8 +24,8 @@ QString Lis::Txt_helper::find_line_in_file(const QString &pattern, QFile *file){
     }
     return NULL;
 }
-QString Lis::Txt_helper::find_data_in_line(const QString &pattern,const QString line){
-    //ищет в строке данные соответствующие шаблону.
+QString Lis::Txt_helper::get_data_from_line(const QString &pattern,const QString line){
+    //возвращает из строки данные соответствующие шаблону.
 
     QRegExp search(pattern);
     int pos=search.indexIn(line);
@@ -43,12 +43,17 @@ QString Lis::Txt_helper::find_data_in_line(const QString &pattern,const QString 
     }
     return NULL;
 }
-QString Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QString &pattern ){
+QString Lis::Txt_helper::copy_lines(QFile *destination, QFile *source, const QString &startpattern, const QString &pattern){
     //копирует из файла source все строки ниже строки,
-    //подходящей шаблону pattern в файл destination
-    //Если строка не задана -копирует все строки
+    //подходящей шаблону startpattern и удовлетворяющие шаблону pattern в файл destination
+    //Если startpattern не задана -копирует все строки удовлетворяющие шаблону pattern
+    //Если pattern не задан -копирует все строки ниже startpattern
     //Возвращает последнюю скопированную строку
     //Если строка подходящая шаблону не найдена возвращает NULL
+
+    qDebug()<<"Copying lines startpattern -"+startpattern+ "pattern-"+pattern;
+    qDebug()<<"from "+source->fileName();
+    qDebug()<<"to "+destination->fileName();
 
     QTextStream in(source);
     QTextStream out(destination);
@@ -65,23 +70,55 @@ QString Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QStri
         out.seek(destination->size());//если файл не чистый - встаем в конец файла для записи
     }
 
-    int rawfound =0;
-    if(pattern == NULL){//если не передан шаблон строки после которой начинать копирование
+    int rawfound =0,filtering =1;
+
+    if(startpattern == NULL){//если не передан шаблон строки после которой начинать копирование
         rawfound =1;
+        qDebug()<<"Start copying form begining of file";
+    }
+    if(pattern == NULL){
+        filtering =0;
+        qDebug()<<"filtering disabled";
+    }else{
+        qDebug()<<"filtering enabled";
     }
 
+    QRegExp search(startpattern);
+    QRegExp filter(pattern);
+
     int copied =0;
+
     while (!in.atEnd()) {
+        int pos;
         line = in.readLine();
         if(rawfound ==1){
-           out << line <<"\n";
-           copied = 1;
+            qDebug()<<"proccess:";
+            if(filtering ==1){
+                qDebug()<<"Filtering";
+                pos=filter.indexIn(line);
+                if(pos!=-1){
+//                            //Заготовка для тестирования регулярки
+//                            QStringList list;
+//                            list = search.capturedTexts();
+//                            QStringListIterator iter(list);
+//                            while(iter.hasNext()){
+//                                qDebug()<<"captured";
+//                                qDebug()<<iter.next();
+//                            }
+                   qDebug()<<"captured";
+                   out << line <<"\n";
+                   copied = 1;
+                }
+            }else{
+                qDebug()<<"captured";
+                out << line <<"\n";
+                copied = 1;
+            }
         }else{
-            //Ищем подходящую строку в файле
-            QRegExp search(pattern);
-            int pos=search.indexIn(line);
+            //Ищем подходящую startpattern строку в файле source
+            pos=search.indexIn(line);
             if(pos!=-1){
-                qDebug()<<"Raw_is_found:"+line;
+                qDebug()<<"Raw_to_start_copying_is_found:"+line;
                 rawfound =1;
             }
         }
@@ -89,12 +126,12 @@ QString Lis::Txt_helper::copy_lines(QFile *destination,QFile *source,const QStri
     out.flush();
     qDebug()<<destination->fileName()+" size after copying: ";
     qDebug()<<destination->size();
+    destination->seek(0);
+    source->seek(0);
     if(copied ==1){
         return line;
     }
     qDebug()<<"No line to copy";
-    destination->seek(0);
-    source->seek(0);
     return NULL;
 }
 
@@ -129,21 +166,38 @@ bool Lis::Txt_helper::replace_line(const QString &pattern, const QString newline
             in << line;
         }
         in.flush();
+        source->seek(0);
         return true;
     }
+    source->seek(0);
     qDebug()<<"line to replace not found";
     return false;
 }
 
 QString Lis::Txt_helper::get_last_line(QFile *file){
+    //возвращает последнюю строку файла
+
     QString line;
 
     if((file->size())== 0){//если файл чистый  - только создан - копируем заголовок
         return NULL;
     }
     QTextStream in(file);
+
+    int header =0;
+    int data =0;
+
     while (!in.atEnd()) {
         line = in.readLine();
+        if(header ==0){
+            header =1;
+        }else{
+            data =1;
+        }
+    }
+    file->seek(0);
+    if(data ==0){
+       return NULL;
     }
     return line;
 
@@ -158,15 +212,15 @@ QString Lis::Txt_helper::convert_date_to_file_name(const QString date){
     QRegExp check(pattern);
 
     pattern = "/([^/]+)$";
-    convertedDate = find_data_in_line(pattern,date);
+    convertedDate = get_data_from_line(pattern,date);
     pattern = "^([^/]+)/";
-    temp = find_data_in_line(pattern,date);
+    temp = get_data_from_line(pattern,date);
     if(temp.count(check)==1){
        convertedDate=convertedDate+"0";
     }
     convertedDate+=temp;
     pattern = "(?:/)([^/]+)(?:/)";
-    temp = find_data_in_line(pattern,date);
+    temp = get_data_from_line(pattern,date);
     if(temp.count(check)==1){
        convertedDate=convertedDate+"0";
     }
@@ -177,7 +231,7 @@ QString Lis::Txt_helper::convert_date_to_file_name(const QString date){
 
 }
 
-QStringList* Lis::Txt_helper::get_file_list(QString dir,QString borderFile){
+QStringList* Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderFile){
     //Функция возвращает список имен файлов директории
     //полученный в результате сортировки (по возрастанию)по имени
     //и исключения файлов предшествующих (меньше) имени borderFile(включительно)
@@ -195,8 +249,6 @@ QStringList* Lis::Txt_helper::get_file_list(QString dir,QString borderFile){
     }
 
     while(i<tempfl->size()){
-        qDebug()<<"i =";
-        qDebug()<<i;
         fl->append(tempfl->at(i));
         founded =1;
         i++;
@@ -229,3 +281,5 @@ void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sour
     }
 
 }
+
+

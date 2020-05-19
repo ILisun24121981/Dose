@@ -22,15 +22,15 @@ bool Lis::Txt_logger::find_last_updated_line_data(const QString reportName, QStr
     QFile logFile(_logFileLink);
     if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
         QString pattern = "^("+reportName+"\\slast\\supdated\\spoint:\\s).*$";
-        QString line =helper.find_line_in_file(pattern,&logFile);
+        QString line =helper.get_line_from_file(pattern,&logFile);
         if(line !=NULL){
             pattern = "(?:file=)(.*)(?=,.*)";
-            QString file = helper.find_data_in_line(pattern,line);
+            QString file = helper.get_data_from_line(pattern,line);
             qDebug()<<"File:"+file;
             if(file != NULL){
                 fileData=file;
                 pattern = "(?:time/date=)(.*)$";
-                QString time = helper.find_data_in_line(pattern,line);
+                QString time = helper.get_data_from_line(pattern,line);
                 qDebug()<<"Time/Date: "+time;
                 if(time!=NULL){
                     timeData =time;
