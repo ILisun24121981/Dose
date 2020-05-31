@@ -231,41 +231,38 @@ QString Lis::Txt_helper::convert_date_to_file_name(const QString date){
 
 }
 
-QStringList* Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderFile){
+QStringList Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderFile){
     //Функция возвращает список имен файлов директории
     //полученный в результате сортировки (по возрастанию)по имени
     //и исключения файлов предшествующих (меньше) имени borderFile(включительно)
     //Возвращает список всех файлов если borderFile не задан
     //Возвращает nullptr если нет файлов после borderFile
 
-    QStringList *fl =new QStringList();
-    QDir *direct = new QDir(dir);
-    direct->setSorting(QDir::Name);
-    QStringList *tempfl =new QStringList(direct->entryList());
+    QStringList fl;
+    QDir direct(dir);
+    direct.setSorting(QDir::Name);
+    QStringList tempfl(direct.entryList());
 
     int i=2, founded = 0;
     if(borderFile != NULL){
-       i=tempfl ->lastIndexOf(borderFile)+1;
+       i=tempfl.lastIndexOf(borderFile)+1;
     }
 
-    while(i<tempfl->size()){
-        fl->append(tempfl->at(i));
+    while(i<tempfl.size()){
+        fl.append(tempfl.at(i));
         founded =1;
         i++;
 
     }
-    delete direct;
-    delete tempfl;
+
     if(founded == 0){
-        qDebug()<<"No files to copy";
-        delete fl;
-        return nullptr;
+        qDebug()<<"No files to copy";       
     }
     qDebug()<<"List of file to copy from dir: "+ dir +" is: ";
-    qDebug()<<*fl;
+    qDebug()<<fl;
     return fl;
-
 }
+
 void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sourceDir, QStringList *sourcefileList){
     //копирует все строки файлов перечисленных в sorcefileList находящихся в директории
     //sourceDir в файл destination

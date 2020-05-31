@@ -16,6 +16,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    chart_item.cpp \
+    chart_widget.cpp \
     controller.cpp \
     eventfilter_login_form.cpp \
     i_txt_login.cpp \
@@ -23,29 +25,32 @@ SOURCES += \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
+    plot_model.cpp \
     processor.cpp \
     report_manager.cpp \
     settings.cpp \
-    trash_cleaner.cpp \
     txt_helper.cpp \
     txt_logger.cpp
 
 HEADERS += \
     Enums.h \
+    chart_item.h \
+    chart_widget.h \
     controller.h \
     eventfilter_login_form.h \
     i_txt_login.h \
     login_form.h \
     login_processor.h \
     mainwindow.h \
+    plot_model.h \
     processor.h \
     report_manager.h \
     settings.h \
-    trash_cleaner.h \
     txt_helper.h \
     txt_logger.h
 
 FORMS += \
+    chart_widget.ui \
     login_form.ui \
     mainwindow.ui
 

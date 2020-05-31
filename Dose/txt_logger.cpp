@@ -64,46 +64,6 @@ bool Lis::Txt_logger::set_last_updated_line_data(const QString reportName,const 
 
 
 
-//    qDebug()<<"Searching "+ reportName +"last updated point data in Logs.txt ";
-//    QFile logFile(_logFileLink);
-//    if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
-//        QTextStream in(&logFile);
-//        while (!in.atEnd()) {
-//            QString line = in.readLine();
-//            //Ищем подходящую строку в файле
-//            QRegExp search("^("+reportName+"\\slast\\supdated\\spoint:\\s).*$");        //("(?:\")(.*)(?=\".*)");
-//            int pos=search.indexIn(line);
-//            if(pos!=-1){
-//                qDebug()<<"Raw_is_found:"+line;
-//                //Ищем название файла
-//                search.setPattern("(?:file=)(.*)(?=,.*)");
-//                pos=search.indexIn(line);
-//                if(pos!=-1){
-//                    point->append(search.cap(1)); // название файла добавлено в point
-//                    search.setPattern("(?:time/date=)(.*)$");
-//                    pos=search.indexIn(line);
-//                    if(pos!=-1){
-//                        point->append(search.cap(1));//дата время добавлено в point
-////                        //Заготовка для тестирования регулярки
-////                        QStringList list;
-////                        list = search.capturedTexts();
-////                        QStringListIterator iter(list);
-////                        while(iter.hasNext()){
-////                            qDebug()<<iter.next();
-////                        }
-//                    }else{
-//                        qDebug()<<"No cap3";
-//                    }
-//                }else{
-//                   qDebug()<<"No cap2";
-//                }
-//            }else{
-//                qDebug()<<"No cap1";
-//            }
-//        }
-//    }
-//}
-
 
 
 

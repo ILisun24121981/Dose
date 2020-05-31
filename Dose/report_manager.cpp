@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QDir>
-#include "trash_cleaner.h"
 #include "txt_helper.h"
 
 Lis::Report_manager::Report_manager(Controller *ct, QObject *parent):Processor(ct,parent){
@@ -11,38 +10,41 @@ Lis::Report_manager::Report_manager(Controller *ct, QObject *parent):Processor(c
 }
 
 void Lis::Report_manager::update_common_raw_report(){
+    //Обновляет общий отчет ориентируясь на
     Txt_helper helper;
     QString line;
     QString pattern;
-    QStringList *filelist;
+    QStringList filelist;
     QString fileName = "CommonRawReport.txt";
     QString dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_reports_folder);
+
     QFile comRawRep(dir+ fileName);
     comRawRep.open(QIODevice::ReadWrite | QFile::Text);
     qDebug()<<"CommonRawReport.txt opened";
     line =helper.get_last_line(&comRawRep);
     qDebug()<<"Last line in "+fileName+" is: " +line;
+
     dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder);
+    fileName.clear();
+
     if(line!=NULL){
         pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
         QString date = helper.get_data_from_line(pattern,line);
         qDebug()<<"date is: "+date;
         fileName =helper.convert_date_to_file_name(date);
+
         QFile source(dir+ fileName);
         if(!source.open(QIODevice::ReadOnly | QFile::Text)){
             QMessageBox::information(NULL, QObject::tr("Error"),"Can not open " + fileName +" to continue copiing lines");
             return;
         }
         helper.copy_lines(&comRawRep,&source,line);
-        filelist =helper.get_files_list_from_dir(dir,fileName);
-    }else{
-        filelist =helper.get_files_list_from_dir(dir);
     }
-    if(filelist == nullptr){
-        return;
+    filelist =helper.get_files_list_from_dir(dir,fileName);
+    if(!filelist.isEmpty()){
+        helper.copy_files_to_file(&comRawRep,dir,&filelist);
     }
-    helper.copy_files_to_file(&comRawRep,dir,filelist);
-    delete filelist;
+
 }
 
 void Lis::Report_manager::update_personal_raw_reports(){
@@ -93,45 +95,7 @@ QStringList* Lis::Report_manager::get_login_list(){
 
 }
 
-//void Lis::Report_manager::update_common_raw_report(){
-
-//    Txt_helper helper;
-
-//    const QString reportName = "CommonRawReport.txt";
-//    QString timeData;
-//    QString fileData;
-//    QString line;
-//    QString Link = (Lis::Settings::get_instance()->get(Lis::Setting_name::Common_reports_folder))+ reportName;
-//    QFile comRawRep(Link);
-//    if(comRawRep.open(QIODevice::ReadWrite | QFile::Text)){
-//        qDebug()<<"CommonRawReport.txt opened";
-//        //Ищем точку которой закончилось последнее обновление отчета
-//        bool point_found =_controller->_logger->find_last_updated_line_data(reportName,fileData,timeData);
-//        if(point_found){
-//            QString Link = (Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_standard_reports_folder))+fileData;
-//            QFile source(Link);
-//            if (!source.open(QIODevice::ReadOnly | QIODevice::Text)){
-//                 QMessageBox::information(NULL, QObject::tr("Error"),"Can not open " + fileData +" from where "+reportName+" update was finished");
-//            }else{
-//                QString pattern = "^("+ timeData +").*$";
-//                line = helper.copy_lines(&comRawRep,&source,pattern);
-//                if(line == NULL){
-//                    return;
-//                }
-//                qDebug()<<"Last Copied line:"+line;
-//                pattern ="^([^;]*);";
-//                timeData = helper.find_data_in_line(pattern,line);
-//                _controller->_logger->set_last_updated_line_data(reportName,fileData,timeData);
-
-//            }
-//        }
-
-
-//    }
-//    comRawRep.flush();
-//    comRawRep.close();
-//}
-
+void Lis::Report_manager::form_common_limited_report(QString *startfilename,QString *endfilename){};
 
 
 

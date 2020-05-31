@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
     private:
         void connection();
 
-        Ui::MainWindow *ui;       
+        Ui::MainWindow *ui;
         Report_manager *_repMng;
         QString User;
 };

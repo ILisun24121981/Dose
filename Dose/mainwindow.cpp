@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "chart_widget.h"
 #include <QDebug>
+
 
 MainWindow::MainWindow(Controller *ct,QWidget *parent )
     :QMainWindow(parent),
@@ -9,8 +11,11 @@ MainWindow::MainWindow(Controller *ct,QWidget *parent )
     ui->setupUi(this);
     ui->label_UserName->setText(ct->_username);
     _repMng = new Report_manager(ct,this);
+
+
     qDebug()<< "MW created";   
     connection();
+
 }
 
 MainWindow::~MainWindow()
