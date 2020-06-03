@@ -30,15 +30,15 @@ QString Lis::Txt_helper::get_data_from_line(const QString &pattern,const QString
     QRegExp search(pattern);
     int pos=search.indexIn(line);
     if(pos!=-1){
-//        //Заготовка для тестирования регулярки
-//        QStringList list;
-//        list = search.capturedTexts();
-//        QStringListIterator iter(list);
-//        while(iter.hasNext()){
-//            qDebug()<<"captured";
-//            qDebug()<<iter.next();
-//        }
-//        //
+        //Заготовка для тестирования регулярки
+        QStringList list;
+        list = search.capturedTexts();
+        QStringListIterator iter(list);
+        while(iter.hasNext()){
+            qDebug()<<"captured";
+            qDebug()<<iter.next();
+        }
+        //
         return search.cap(1);
     }
     return NULL;
@@ -135,44 +135,44 @@ QString Lis::Txt_helper::copy_lines(QFile *destination, QFile *source, const QSt
     return NULL;
 }
 
-bool Lis::Txt_helper::replace_line(const QString &pattern, const QString newline,QFile *source,QFile *temp){
-    //Заменяет строку подходящую по шаблону pattern в файле source
-    //на новую newline
+//bool Lis::Txt_helper::replace_line(const QString &pattern, const QString newline,QFile *source,QFile *temp){
+//    //Заменяет строку подходящую по шаблону pattern в файле source
+//    //на новую newline
 
-    QTextStream in(source);
-    QTextStream out(temp);
-    QRegExp search(pattern);
-    int replaced =0;
+//    QTextStream in(source);
+//    QTextStream out(temp);
+//    QRegExp search(pattern);
+//    int replaced =0;
 
-    while (!in.atEnd()) {
-        QString line = in.readLine();
-        //Ищем подходящую строку в файле
-        int pos=search.indexIn(line);
-        if(pos!=-1){
-           out << newline;
-           qDebug()<<"line: "+line+" replaced with line:"+newline;
-           replaced =1;
-        }else{
-           out<<line;
-        }
-    }
-    if(replaced ==1){
-        out.flush();
-        in.seek(0);
-        out.seek(0);
+//    while (!in.atEnd()) {
+//        QString line = in.readLine();
+//        //Ищем подходящую строку в файле
+//        int pos=search.indexIn(line);
+//        if(pos!=-1){
+//           out << newline;
+//           qDebug()<<"line: "+line+" replaced with line:"+newline;
+//           replaced =1;
+//        }else{
+//           out<<line;
+//        }
+//    }
+//    if(replaced ==1){
+//        out.flush();
+//        in.seek(0);
+//        out.seek(0);
 
-        while (!out.atEnd()) {
-            QString line = out.readLine();
-            in << line;
-        }
-        in.flush();
-        source->seek(0);
-        return true;
-    }
-    source->seek(0);
-    qDebug()<<"line to replace not found";
-    return false;
-}
+//        while (!out.atEnd()) {
+//            QString line = out.readLine();
+//            in << line;
+//        }
+//        in.flush();
+//        source->seek(0);
+//        return true;
+//    }
+//    source->seek(0);
+//    qDebug()<<"line to replace not found";
+//    return false;
+//}
 
 QString Lis::Txt_helper::get_last_line(QFile *file){
     //возвращает последнюю строку файла
@@ -202,7 +202,7 @@ QString Lis::Txt_helper::get_last_line(QFile *file){
     return line;
 
 }
-QString Lis::Txt_helper::convert_date_to_file_name(const QString date){
+QString Lis::Txt_helper::convert_date_format(const QString date){
     //преобразовывает формат записи даты полученной из строки
     //к формату записи даты для именования стандартных отчетов
 
@@ -224,14 +224,12 @@ QString Lis::Txt_helper::convert_date_to_file_name(const QString date){
     if(temp.count(check)==1){
        convertedDate=convertedDate+"0";
     }
-    convertedDate+=temp;
-    convertedDate+="мкЗвN2.log";
-    qDebug()<<"Source file of last line is: "+convertedDate;
+    convertedDate+=temp;    
     return convertedDate;
 
 }
 
-QStringList Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderFile){
+QStringList Lis::Txt_helper::get_files_list_from_dir(const QString dir,const QString borderFileName){
     //Функция возвращает список имен файлов директории
     //полученный в результате сортировки (по возрастанию)по имени
     //и исключения файлов предшествующих (меньше) имени borderFile(включительно)
@@ -244,8 +242,8 @@ QStringList Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderF
     QStringList tempfl(direct.entryList());
 
     int i=2, founded = 0;
-    if(borderFile != NULL){
-       i=tempfl.lastIndexOf(borderFile)+1;
+    if(borderFileName != NULL){
+       i=tempfl.lastIndexOf(borderFileName)+1;
     }
 
     while(i<tempfl.size()){
@@ -263,7 +261,7 @@ QStringList Lis::Txt_helper::get_files_list_from_dir(QString dir,QString borderF
     return fl;
 }
 
-void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sourceDir, QStringList *sourcefileList){
+void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sourceDir,const QStringList *sourcefileList){
     //копирует все строки файлов перечисленных в sorcefileList находящихся в директории
     //sourceDir в файл destination
     int i=0;
@@ -278,5 +276,7 @@ void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sour
     }
 
 }
+
+
 
 

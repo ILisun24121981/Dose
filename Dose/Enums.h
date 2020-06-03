@@ -1,6 +1,6 @@
 #ifndef ENUMS_H
 #define ENUMS_H
-
+#include <QDateTime>
 
 namespace Lis {
     //
@@ -17,15 +17,17 @@ namespace Lis {
     enum Setting_name {
         Logins_and_passports_file_folder,
         Raw_standard_reports_folder,
-        Raw_reports_folder,
-        Formated_reports_folder,
+        Raw_common_report_folder,
+        Raw_personal_reports_folder,
         Logs_file_folder
     };
 
-    enum Updated_point{
-        File_name,
-        Time_date
-    };
+//    enum Updated_point{
+//        File_name,
+//        Time_date
+//    };
+
+
 }
 
 #endif // ENUMS_H

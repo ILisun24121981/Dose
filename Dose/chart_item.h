@@ -4,21 +4,19 @@
 
 #include <QGraphicsItem>
 
-typedef struct {
-    QDateTime datetime;
-    float value;
-}Point;
+
+namespace Lis {
 
 
+    class Chart_Item:public QGraphicsItem
+    {
+        public:
+            Chart_Item(const QDateTime datetime,const float value);
 
-class Chart_Item:public QGraphicsItem
-{
-    public:
-        Chart_Item(const QDateTime datetime,const float value);
+        private:
+            //Chart_Point * _point;
 
-    private:
-        Point * _point;
-
-};
+    };
+}
 
 #endif // CHART_ITEM_H

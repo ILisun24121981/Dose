@@ -19,15 +19,15 @@ SOURCES += \
     chart_item.cpp \
     chart_widget.cpp \
     controller.cpp \
+    data_model.cpp \
     eventfilter_login_form.cpp \
     i_txt_login.cpp \
     login_processor.cpp \
     main.cpp \
     login_form.cpp \
     mainwindow.cpp \
-    plot_model.cpp \
     processor.cpp \
-    report_manager.cpp \
+    report_updater.cpp \
     settings.cpp \
     txt_helper.cpp \
     txt_logger.cpp
@@ -37,14 +37,14 @@ HEADERS += \
     chart_item.h \
     chart_widget.h \
     controller.h \
+    data_model.h \
     eventfilter_login_form.h \
     i_txt_login.h \
     login_form.h \
     login_processor.h \
     mainwindow.h \
-    plot_model.h \
     processor.h \
-    report_manager.h \
+    report_updater.h \
     settings.h \
     txt_helper.h \
     txt_logger.h

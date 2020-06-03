@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "report_manager.h"
+#include "report_updater.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; };
@@ -21,8 +21,15 @@ class MainWindow : public QMainWindow
     private:
         void connection();
 
+    private slots:
+        void update_common_raw_report();
+        void update_personal_raw_reports();
+        void update_data_model();
+
+
+
+    private:
         Ui::MainWindow *ui;
-        Report_manager *_repMng;
         QString User;
 };
 

@@ -41,23 +41,23 @@ bool Lis::Txt_logger::find_last_updated_line_data(const QString reportName, QStr
     }
     return false;
 }
-bool Lis::Txt_logger::set_last_updated_line_data(const QString reportName,const QString fileData,const QString timeData){
+//bool Lis::Txt_logger::set_last_updated_line_data(const QString reportName,const QString fileData,const QString timeData){
 
-    Txt_helper helper;
-    QString line = reportName+" last updated point: file="+fileData+", time/date="+timeData;
-    qDebug()<<"Serching last updated point of "+reportName+" in Logs.txt";
-    QFile logFile(_logFileLink);
-    if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
-        QFile tempFile(_tempFileLink);
-        if(tempFile.open(QIODevice::ReadWrite | QFile::Text)){
-            QString pattern = "^("+reportName+"\\slast\\supdated\\spoint:\\s).*$";
-            helper.replace_line(pattern,line,&logFile,&tempFile);
-            tempFile.close();
-        }
-        logFile.close();
-    }
+//    Txt_helper helper;
+//    QString line = reportName+" last updated point: file="+fileData+", time/date="+timeData;
+//    qDebug()<<"Serching last updated point of "+reportName+" in Logs.txt";
+//    QFile logFile(_logFileLink);
+//    if(logFile.open(QIODevice::ReadWrite | QFile::Text)){
+//        QFile tempFile(_tempFileLink);
+//        if(tempFile.open(QIODevice::ReadWrite | QFile::Text)){
+//            QString pattern = "^("+reportName+"\\slast\\supdated\\spoint:\\s).*$";
+//            helper.replace_line(pattern,line,&logFile,&tempFile);
+//            tempFile.close();
+//        }
+//        logFile.close();
+//    }
 
-}
+//}
 
 
 

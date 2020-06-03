@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtCharts/QChartGlobal>
+#include "chart_item.h"
 
 
 
@@ -16,18 +17,27 @@ class Chart_Widget;
 
 QT_CHARTS_USE_NAMESPACE
 
-class Chart_Widget : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit Chart_Widget(QWidget *parent = nullptr);
-    ~Chart_Widget();
-
-private:
-    Ui::Chart_Widget *ui;
+namespace Lis {
 
 
-};
+
+    class Chart_Widget : public QWidget
+    {
+        Q_OBJECT
+
+    public:
+        explicit Chart_Widget(QWidget *parent = nullptr);
+        ~Chart_Widget();
+
+        Chart_Item* create_Chart_Item();
+
+
+    private:
+        Ui::Chart_Widget *ui;
+
+
+    };
+
+}
 
 #endif // CHART_WIDGET_H
