@@ -22,6 +22,11 @@ namespace Lis {
         Logs_file_folder
     };
 
+    enum State{
+        YES,
+        NO
+    };
+
 //    enum Updated_point{
 //        File_name,
 //        Time_date

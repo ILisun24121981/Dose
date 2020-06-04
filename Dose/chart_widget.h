@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QtCharts/QChartGlobal>
 #include "chart_item.h"
+#include "data_model.h"
 
 
 
@@ -30,10 +31,11 @@ namespace Lis {
         ~Chart_Widget();
 
         Chart_Item* create_Chart_Item();
-
+        DATA get_data();
 
     private:
         Ui::Chart_Widget *ui;
+        DATA data;
 
 
     };

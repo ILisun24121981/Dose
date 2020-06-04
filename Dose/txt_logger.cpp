@@ -25,12 +25,12 @@ bool Lis::Txt_logger::find_last_updated_line_data(const QString reportName, QStr
         QString line =helper.get_line_from_file(pattern,&logFile);
         if(line !=NULL){
             pattern = "(?:file=)(.*)(?=,.*)";
-            QString file = helper.get_data_from_line(pattern,line);
+            QString file = helper.get_matched_from_line(pattern,line);
             qDebug()<<"File:"+file;
             if(file != NULL){
                 fileData=file;
                 pattern = "(?:time/date=)(.*)$";
-                QString time = helper.get_data_from_line(pattern,line);
+                QString time = helper.get_matched_from_line(pattern,line);
                 qDebug()<<"Time/Date: "+time;
                 if(time!=NULL){
                     timeData =time;

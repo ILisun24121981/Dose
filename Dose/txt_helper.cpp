@@ -24,25 +24,7 @@ QString Lis::Txt_helper::get_line_from_file(const QString &pattern, QFile *file)
     }
     return NULL;
 }
-QString Lis::Txt_helper::get_data_from_line(const QString &pattern,const QString line){
-    //возвращает из строки данные соответствующие шаблону.
 
-    QRegExp search(pattern);
-    int pos=search.indexIn(line);
-    if(pos!=-1){
-        //Заготовка для тестирования регулярки
-        QStringList list;
-        list = search.capturedTexts();
-        QStringListIterator iter(list);
-        while(iter.hasNext()){
-            qDebug()<<"captured";
-            qDebug()<<iter.next();
-        }
-        //
-        return search.cap(1);
-    }
-    return NULL;
-}
 QString Lis::Txt_helper::copy_lines(QFile *destination, QFile *source, const QString &startpattern, const QString &pattern){
     //копирует из файла source все строки ниже строки,
     //подходящей шаблону startpattern и удовлетворяющие шаблону pattern в файл destination
@@ -212,15 +194,15 @@ QString Lis::Txt_helper::convert_date_format(const QString date){
     QRegExp check(pattern);
 
     pattern = "/([^/]+)$";
-    convertedDate = get_data_from_line(pattern,date);
+    convertedDate = get_matched_from_line(pattern,date);
     pattern = "^([^/]+)/";
-    temp = get_data_from_line(pattern,date);
+    temp = get_matched_from_line(pattern,date);
     if(temp.count(check)==1){
        convertedDate=convertedDate+"0";
     }
     convertedDate+=temp;
     pattern = "(?:/)([^/]+)(?:/)";
-    temp = get_data_from_line(pattern,date);
+    temp = get_matched_from_line(pattern,date);
     if(temp.count(check)==1){
        convertedDate=convertedDate+"0";
     }
@@ -275,6 +257,46 @@ void Lis::Txt_helper::copy_files_to_file (QFile *destination, const QString sour
         i++;
     }
 
+}
+
+QString Lis::Txt_helper::get_matched_from_line(const QString &pattern,const QString line){
+    //возвращает из строки данные соответствующие шаблону.
+
+    QRegExp search(pattern);
+    int pos=search.indexIn(line);
+    if(pos!=-1){
+        //Заготовка для тестирования регулярки
+        QStringList list;
+        list = search.capturedTexts();
+        QStringListIterator iter(list);
+        while(iter.hasNext()){
+            qDebug()<<"captured";
+            qDebug()<<iter.next();
+        }
+        //
+        return search.cap(1);
+    }
+    return NULL;
+}
+
+QList<QString> Lis::Txt_helper::get_all_matched_from_line(QString pattern, QString line){
+    QList<QString> list;
+
+    QList<QString>* ptr;
+    qDebug()<<"локальный указатель на скисок параметров возвращаемый из get_all_matched_from_line;";
+    qDebug()<<ptr;
+
+    QRegExp search(pattern);
+    int count = 0;
+    int pos = 0;
+    //qDebug()<<"значение pos == 0?:";
+    //qDebug()<<pos;
+    while((pos =search.indexIn(line,pos))!= -1){
+        ++count;
+        pos += search.cap(1).length()+1;
+        list<< search.cap(1);
+    }
+    return list;
 }
 
 

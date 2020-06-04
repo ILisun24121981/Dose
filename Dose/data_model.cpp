@@ -7,130 +7,124 @@
 #include <QString>
 #include <QMessageBox>
 
+
+
 Lis::Data_Model::Data_Model()
 {
-
+    _data = get_data();
 }
 
 Lis::DATA Lis::Data_Model::get_data(){
 
-    int first;
+    int firstScan = Lis::State::YES;
     DATA data;
 
     DATA* ptr1 = &data;
-    qDebug()<<"локальный указатель DATA* ptr1 =;";
+    qDebug()<<"локальный указатель DATA* ptr1 в функции get_data()=;";
     qDebug()<<ptr1;
+
+
 
     Txt_helper helper;
     QString dir = Lis::Settings::get_instance()->get(Lis::Setting_name::Raw_personal_reports_folder);
     QStringList filelist = helper.get_files_list_from_dir(dir);
+
     if(!filelist.isEmpty()){
         for(const QString &x: filelist){
 
             USER_POINTS up;
 
             USER_POINTS* ptr2 = &up;
-            qDebug()<<"локальный указатель USER_POINTS* ptr2 =;";
+            qDebug()<<"локальный указатель USER_POINTS* созданный в get_data() ptr2 =;";
             qDebug()<<ptr2;
 
             QString pattern = "^(.+)_";//шаблон для выделения имени из названия файла
-            up.first = helper.get_data_from_line(pattern,x);
+            up.first = helper.get_matched_from_line(pattern,x);
             qDebug()<<"Формируем список для "+up.first;
+
             QFile source(dir+ x);
             if(!source.open(QIODevice::ReadOnly | QFile::Text)){
                 QMessageBox::information(NULL, QObject::tr("Error"),"Can not open " + x +" to continue copiing lines");
                 return data;
             }
             QTextStream in(&source);
-            first = 0;//пропуск первой строки - заголовка
-            while (!in.atEnd()) {
-                qDebug()<<"Сканируем строку";
+
+            int header =Lis::State::YES;
+
+            while (!in.atEnd()) {//формируем список тайм поинтов для пользователя
+                //qDebug()<<"Сканируем строку";
+
                 QString line = in.readLine();
-                if(first!= 0){
-                    pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
-                    QString datetime = helper.get_data_from_line(pattern,line);
-                    qDebug()<<"date is: "+datetime;
-                    datetime =helper.convert_date_format(datetime);
-                    pattern ="(\\d+:\\d+:\\d+\\s*(AM|PM))";
-                    datetime = datetime +" "+ helper.get_data_from_line(pattern,line);
-                    qDebug()<<"datetime is: "+datetime;
+                pattern = ";?([^;]+);?";
+                QList<QString> fullList = helper.get_all_matched_from_line(pattern,line);
 
-                    TIME_POINT tp;
-                    tp.first = datetime;
+                qDebug()<<"скисок параметров возвращенный из get_all_matched_from_line();";
+                qDebug()<<fullList;
+                QList<QString>* ptrl = &fullList;
+                qDebug()<<"локальный указатель на скисок параметров возвращенный из get_all_matched_from_line();";
+                qDebug()<<ptrl;
 
-                    TIME_POINT* ptr3 = &tp;
-                    qDebug()<<"локальный указатель USER_POINTS* ptr3 =;";
-                    qDebug()<<ptr3;
-
-                    QList<float> tpl;
-
-                    QList<float>* ptr4 = &tpl;
-                    qDebug()<<"локальный указатель USER_POINTS.QList<float>* ptr4 =;";
-                    qDebug()<<ptr4;
-
-                    qDebug()<<"Ищем данные в строке";
-                    pattern = ";?([^;]+);?";
-                    QRegExp search(pattern);
-                    int count = 0;
-                    int pos = 0;
-                    qDebug()<<"значение pos == 0?:";
-                    qDebug()<<"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
-                    qDebug()<<pos;
-                    while((pos =search.indexIn(line,pos))!= -1){
-                        ++count;
-                        qDebug()<<"значение pos:";
-                        qDebug()<<pos;
-
-//                            //Заготовка для тестирования регулярки
-//                            qDebug()<<"Все захваченные совпадения";
-//                            QStringList list;
-//                            list = search.capturedTexts();
-//                            QStringListIterator iter(list);
-//                            while(iter.hasNext()){
-//                                qDebug()<<"captured";
-//                                qDebug()<<iter.next();
-//                            }
-                        qDebug()<<"Возмем это:";
-                        qDebug()<<search.cap(1);
-                       // tpl<< search.cap(1).toFloat();
-                        pos += search.cap(1).length()+1;
-                        if(count>6){
-                            qDebug()<<"захватить эти данные";
-                        }
-                    }
+                int pos = 0;
+                if(firstScan == Lis::State::YES){//Формируем список параметров из заголовка файла
+                    QList<QString> parameterNameList;
+                    for(const QString &x: fullList){
+                       if(pos > Lis::Need_pos::Start && pos <Lis::Need_pos::END){//нужные данные в вернутом списке.
+                           parameterNameList<<x;
+                       }
+                       pos++;
+                     }
+                    data.first<<parameterNameList;
+                    firstScan = Lis::State::NO;
+                    qDebug()<<"скисок имен параметров записанный в DATA;";
+                    qDebug()<<data.first;
                 }
-                first =1;
-            }
+
+                if(header == Lis::State::NO){//формируем список занчений параметров для тайм поинта
+                    TIME_POINT tp;
+                    QList<float> parameterValList;
+                    for(const QString &x: fullList){
+                       if(pos == Lis::Need_pos::TIME){//преобразовываем время и дату
+                           pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
+                           QString datetime = helper.get_matched_from_line(pattern,x);
+                           datetime =helper.convert_date_format(datetime);
+                           pattern ="(\\d+:\\d+:\\d+\\s*(AM|PM))";
+                           datetime = datetime +" "+ helper.get_matched_from_line(pattern,x);
+
+                           tp.first =datetime;
+                           qDebug()<<"Дата/время записанное в тайм поинт";
+                           qDebug()<<tp.first;
+                       }
+                       if(pos > Lis::Need_pos::Start && pos <Lis::Need_pos::END){// нужные данные в вернутом списке.
+                           parameterValList<<x.toFloat();
+                       }
+                       pos++;
+                     }
+                     tp.second<<parameterValList;
+                     qDebug()<<"скисок значений параметров записанный в тайм поинт";
+                     qDebug()<<tp.second;
+                     up.second<< tp;
+                }
+                header = Lis::State::NO;
+            }//сформировали список тайм поинтов для пользователя
+            qDebug()<<"скисок тайм поинтов для"+up.first;
+            qDebug()<<up.second;
+            data.second<<up;
         }
+        qDebug()<<"DATA;";
+        qDebug()<<data;
     }
+    return data;
 }
 
 
-//Lis::DATA* Lis::Data_Model::get_data(QFile* source){
-//    QTextStream in(source);
-//    QString line;
-//    Lis::DATA* data = new Lis::DATA();
+Lis::USER_POINTS Lis::Data_Model::get_user_points(QString username){
+   for(const USER_POINTS &x: _data.second){
+       if(x.first == username){
+           return x;
+       }
+   }
+}
 
-//    QRegExp pattern = ;
 
-
-
-//    while (!in.atEnd()) {
-//        int pos;
-//        line = in.readLine();
-//        pos= pattern.indexIn(line);
-//        if(pos!=-1){
-////                            //Заготовка для тестирования регулярки
-////                            QStringList list;
-////                            list = search.capturedTexts();
-////                            QStringListIterator iter(list);
-////                            while(iter.hasNext()){
-////                                qDebug()<<"captured";
-////                                qDebug()<<iter.next();
-////                            }
-//           qDebug()<<"captured";
-//    }
-
-//}
 
 

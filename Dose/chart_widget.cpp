@@ -18,7 +18,6 @@ Lis::Chart_Widget::Chart_Widget(QWidget *parent) :
     QList<Chart_Item*>* itemlist;
 
 
-
 }
 
 Lis::Chart_Widget::~Chart_Widget()

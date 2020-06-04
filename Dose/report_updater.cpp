@@ -26,7 +26,7 @@ void Lis::Report_updater::update_common_raw_report(){
 
     if(line!=NULL){
         pattern ="^(\\S+)\\s";//шаблон извлекающий дату из строки
-        QString date = helper.get_data_from_line(pattern,line);
+        QString date = helper.get_matched_from_line(pattern,line);
         qDebug()<<"date is: "+date;
         fileName =helper.convert_date_format(date)+"мкЗвN2.log";
         qDebug()<<"Source file of last line is: "+fileName;
